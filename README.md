@@ -6,14 +6,15 @@ This is a sample project that shows how to write truly end-to-end tests in Scala
 
 This project uses:
 
-* [SBT](http://www.scala-sbt.org/) for the build and more importantly the test harness
+* [Sbt](http://www.scala-sbt.org/) for the build and more importantly the test harness
 * [Vagrant](http://www.vagrantup.com/) for running the tests
 * [Ansible](http://www.ansible.com/) for deployment and automation
+* [Maven](http://maven.apache.org/) repository for publishing and artifact distribution (specifically an S3-based repo, but any maven-compatible repository manager will do, like: Sonatype [Nexus](http://www.sonatype.org/nexus/) or OSS (https://oss.sonatype.org/), [Artifactory](http://www.jfrog.com/home/v_artifactory_opensource_overview), etc.)
 
 The app itself is a [finagle](https://twitter.github.io/finagle/)-based "micro-service" that exposes a REST API. The architecture includes:
 
 * [HAProxy](http://www.haproxy.org/) as a load balancer
-* [Nginx](http://nginx.org/) as an http server infront of finagle
+* [Nginx](http://nginx.org/) as an http server in front of finagle
 * [Elasticsearch](http://www.elasticsearch.org/) as the datastore
 
 ## Requirements
