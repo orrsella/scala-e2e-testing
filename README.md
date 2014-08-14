@@ -1,6 +1,6 @@
 # scala-e2e
 
-This is a sample project on how to write truly end-to-end tests in Scala. It accompanies a talk I gave in [Scalapeno](http://www.scalapeno.org.il/) 2014 titled *"True end-to-end testing in Scala"*. You can read more about this project and the concepts in incorporates in [this series of blog posts](http://orrsella.com).
+This is a sample project that shows how to write truly end-to-end tests in Scala. It accompanies a talk I gave in [Scalapeno](http://www.scalapeno.org.il/) 2014 titled *"True end-to-end testing in Scala"*. You can read more about this project and the concepts in incorporates in [this series of blog posts](http://orrsella.com).
 
 ## Project
 
