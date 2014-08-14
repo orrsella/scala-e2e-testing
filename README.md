@@ -9,15 +9,39 @@ This project uses:
 * [Sbt](http://www.scala-sbt.org/) for the build and more importantly the test harness
 * [Vagrant](http://www.vagrantup.com/) for running the tests
 * [Ansible](http://www.ansible.com/) for deployment and automation
-* [Maven](http://maven.apache.org/) repository for publishing and artifact distribution (specifically an S3-based repo, but any maven-compatible repository manager will do, like: Sonatype [Nexus](http://www.sonatype.org/nexus/) or OSS (https://oss.sonatype.org/), [Artifactory](http://www.jfrog.com/home/v_artifactory_opensource_overview), etc.)
+* [Maven](http://maven.apache.org/) repository for artifact publishing and distribution (specifically an AWS S3-based repo, but any maven-compatible repository manager will do, like: Sonatype [Nexus](http://www.sonatype.org/nexus/) or [OSS](https://oss.sonatype.org/), [Artifactory](http://www.jfrog.com/home/v_artifactory_opensource_overview), etc.)
 
-The app itself is a [finagle](https://twitter.github.io/finagle/)-based "micro-service" that exposes a REST API. The architecture includes:
+## Scala App
+
+The app itself is a [finatra](http://finatra.info/)-based "micro-service" (this is an arbitrary decision, it could just as easily be another server framework/library, like [Play](https://playframework.com/), [finagle](https://twitter.github.io/finagle/) itself, [spray](http://spray.io/), etc.).
+
+Our simple example app is a commenting system, which allows storing, retrieving and searching for comments. It's therefore named `opinari`. It exposes REST endpoints and returns JSON.
+
+opine
+opinari
+opinor
+commentator
+
+The app is composed of two modules: `core` and `finatra`. The core contains as much of the code as possible, and includes unit and integration tests. The finatra module is the server aspect, and only contains the controller/http layer. It's modeled so we can later on easily replace the server module and use a different library/framework as our http server (or something else completely). Our end-to-end tests reside in this module, and they are specifically tailored to this service's interface. If we later decide to change/add another http module, that returns HTML for example, we would write different end-to-end tests which work with HTML.
+
+## Infrastructure/Architecture
+
+The architecture includes:
 
 * [HAProxy](http://www.haproxy.org/) as a load balancer
 * [Nginx](http://nginx.org/) as an http server in front of finagle
 * [Elasticsearch](http://www.elasticsearch.org/) as the datastore
 
-## Requirements
-
 ## Running
 
+There are 3 testing modes:
+
+* `test` for running unit tests
+* `it:test` for running integration tests
+* `e2e:test` for running end-to-end tests
+
+To run all tests together:
+
+```bash
+$ sbt test-all
+```
