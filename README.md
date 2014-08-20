@@ -31,6 +31,13 @@ The architecture includes:
 
 The scala app and ansible playbooks are joined here in the same git repository mainly for brevity and ease-of-use. It is suggested that real projects separate them into two repositories (or more if you have more then one deployable) to allow more flexibility, but this is up to you.
 
+## Structure
+
+```
+ansible/
+scala/
+```
+
 ## Requirements
 
 * Vagrant
@@ -53,4 +60,6 @@ $ sbt test-all
 ## TODO
 
 - write module for maven downloading
-- update pom.xml.j2
+- update artifact's version
+- different configs for vagrant/production
+- run vagrant provisioner for ansible
