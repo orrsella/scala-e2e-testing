@@ -1,0 +1,109 @@
+#!/bin/bash
+# chkconfig: 345 20 80
+# source: http://werxltd.com/wp/2012/01/05/simple-init-d-script-template/
+
+NAME={{ service_name }}
+APP_DIR={{ artifact_extracted_dir }}
+PID_FILE={{ pid_file }}
+APP_CONFIG={{ app_config }}
+LOG_CONFIG={{ log_config }}
+VERSION={{ version }}
+
+FQDN=`hostname -f`
+
+# ***********************************************
+# ***********************************************
+
+ARGS="-Dconfig.file=${APP_CONFIG} -Dlogback.configurationFile=${LOG_CONFIG}"
+DAEMON=$APP_DIR/bin/$NAME
+
+# colors
+red='\e[0;31m'
+green='\e[0;32m'
+yellow='\e[0;33m'
+reset='\e[0m'
+
+echoGreen() {
+    echo -e "${green}$1${reset}"
+}
+
+echoRed() {
+    echo -e "${red}$1${reset}"
+}
+
+echoYellow() {
+    echo -e "${yellow}$1${reset}"
+}
+
+start() {
+    PID=`$DAEMON $ARGS > /dev/null 2>&1 & echo $!`
+}
+
+case "$1" in
+start)
+    if [ -f $PID_FILE ]; then
+        PID=`cat $PID_FILE`
+        if [ -z "`ps axf | grep ${PID} | grep -v grep`" ]; then
+            start
+        else
+            echoYellow "Already running [$PID]"
+            exit 0
+        fi
+    else
+        start
+    fi
+
+    if [ -z $PID ]; then
+        echoRed "Failed starting"
+        exit 3
+    else
+        echo $PID > $PID_FILE
+        echoGreen "Started [$PID]"
+        exit 0
+    fi
+;;
+
+status)
+    if [ -f $PID_FILE ]; then
+        PID=`cat $PID_FILE`
+        if [ -z "`ps axf | grep ${PID} | grep -v grep`" ]; then
+            echoRed "Not running (process dead but pidfile exists)"
+            exit 1
+        else
+            echoGreen "Running [$PID]"
+            exit 0
+        fi
+    else
+        echoRed "Not running"
+        exit 3
+    fi
+;;
+
+stop)
+    if [ -f $PID_FILE ]; then
+        PID=`cat $PID_FILE`
+        if [ -z "`ps axf | grep ${PID} | grep -v grep`" ]; then
+            echoRed "Not running (process dead but pidfile exists)"
+            exit 1
+        else
+            PID=`cat $PID_FILE`
+            kill -HUP $PID
+            echoGreen "Stopped [$PID]"
+            rm -f $PID_FILE
+            exit 0
+        fi
+    else
+        echoRed "Not running (pid not found)"
+        exit 3
+    fi
+;;
+
+restart)
+    $0 stop
+    $0 start
+;;
+
+*)
+    echo "Usage: $0 {status|start|stop|restart}"
+    exit 1
+esac

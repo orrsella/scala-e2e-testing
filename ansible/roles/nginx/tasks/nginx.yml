@@ -1,0 +1,15 @@
+---
+
+- name: Install nginx
+  apt: pkg=nginx state=present
+
+- name: Configure nginx
+  template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf
+  notify: restart nginx
+
+- name: Ensure nginx is running and enabled
+  service: name=nginx state=started enabled=yes
+
+- name: Disable nginx's default site
+  file: path=/etc/nginx/sites-enabled/default state=absent
+  notify: restart nginx

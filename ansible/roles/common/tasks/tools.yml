@@ -1,0 +1,12 @@
+---
+
+- name: Install some tools
+  apt: pkg={{ item }} state=present
+  with_items:
+    - git
+    - htop
+    - iftop
+    - iotop
+    - ifstat
+    - unzip
+    - screen

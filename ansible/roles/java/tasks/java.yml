@@ -1,0 +1,25 @@
+---
+
+- name: Trust the webupd8team gpg key
+  apt_key: id=EEA14886 keyserver=keyserver.ubuntu.com state=present
+
+- name: Add the webupd8team apt repository (deb)
+  apt_repository: repo='deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main' state=present update_cache=yes
+
+- name: Add the webupd8team apt repository (deb-src)
+  apt_repository: repo='deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main' state=present update_cache=yes
+
+- name: Read contents of debconf selections
+  shell: cat /var/cache/debconf/config.dat
+  register: debconf_selections
+
+- name: Set oracle java license as selected
+  shell: echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
+  when: debconf_selections.stdout.find('accepted-oracle-license-v1-1') == -1
+
+- name: Set oracle java license as seen
+  shell: echo oracle-java8-installer shared/accepted-oracle-license-v1-1 seen true   | sudo debconf-set-selections
+  when: debconf_selections.stdout.find('accepted-oracle-license-v1-1') == -1
+
+- name: Install java
+  apt: pkg=oracle-java8-installer state=present

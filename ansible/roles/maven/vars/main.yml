@@ -1,0 +1,13 @@
+---
+
+maven_dir: "~/.m2"
+maven_settings_xml: "{{ maven_dir }}/settings.xml"
+
+maven_servers:
+  - id: releases-repo
+    username: TODO
+    password: TODO
+
+  - id: snapshots-repo
+    username: TODO
+    password: TODO

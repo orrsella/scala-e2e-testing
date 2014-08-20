@@ -1,0 +1,18 @@
+---
+
+- name: Configure nginx sites-available
+  template: src=nginx/site.j2 dest=/etc/nginx/sites-available/{{ nginx_site_name }}
+  notify: restart nginx
+
+- name: Create nginx symlink for sites-enabled
+  file: src=/etc/nginx/sites-available/{{ nginx_site_name }} dest=/etc/nginx/sites-enabled/{{ nginx_site_name }} state=link
+  notify: restart nginx
+
+- name: Install passlib
+  apt: pkg=python-passlib state=present
+
+- name: Create htpasswd
+  htpasswd: path={{ nginx_admin_htpasswd_file }} name={{ nginx_admin_user }} password={{ nginx_admin_password }} owner={{ nginx_user }} mode=0640
+
+- name: Sync www dir
+  copy: src=www/ dest={{ nginx_www_dir }}

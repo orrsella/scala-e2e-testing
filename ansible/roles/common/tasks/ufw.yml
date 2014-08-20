@@ -1,0 +1,12 @@
+---
+
+- name: Install ufw
+  apt: pkg=ufw state=present
+
+- name: Set default policy to deny and enable ufw
+  ufw: state=enabled policy=deny
+
+- name: Allow specific ports from all
+  ufw: rule=allow port={{ item }} proto=tcp
+  with_items:
+    - 22

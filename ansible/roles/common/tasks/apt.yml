@@ -1,0 +1,16 @@
+---
+
+- name: Update apt cache
+  apt: update_cache=yes cache_valid_time=86400
+
+# - name: Upgrade all safe packages
+#   apt: upgrade=safe
+
+- name: Install unattended upgrades
+  apt: pkg=unattended-upgrades state=present
+
+- name: Configure unattended upgrades (10periodic)
+  copy: src=10periodic dest=/etc/apt/apt.conf.d/10periodic
+
+- name: Configure unattended upgrades (50unattended-upgrades)
+  copy: src=50unattended-upgrades dest=/etc/apt/apt.conf.d/50unattended-upgrades

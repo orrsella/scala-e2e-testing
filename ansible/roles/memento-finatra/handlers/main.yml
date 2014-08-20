@@ -1,0 +1,7 @@
+---
+
+- name: restart service
+  service: name={{ service_name }} state=restarted
+
+- name: restart nginx
+  service: name=nginx state=restarted

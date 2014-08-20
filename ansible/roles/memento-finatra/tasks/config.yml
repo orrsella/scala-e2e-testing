@@ -1,0 +1,15 @@
+---
+
+- name: Config init script
+  template: src=init.d/service.j2 dest=/etc/init.d/{{ service_name }} mode=755
+
+- name: Config application.conf
+  template: src=conf/application.conf.j2 dest={{ app_config }}
+  notify: restart service
+
+- name: Config logback.xml
+  template: src=conf/logback.xml.j2 dest={{ log_config }}
+  notify: restart service
+
+- name: Ensure service is enabled and running
+  service: name={{ service_name }} state=started enabled=yes

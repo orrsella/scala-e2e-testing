@@ -1,0 +1,17 @@
+---
+
+port: 80
+mode: http
+balance: roundrobin
+
+# The port of the app we want to load balance over
+backend_port: 7770
+
+# Ethernet interface on which the load balancer should listen
+# Defaults to the first interface. Change this to:
+#
+#  iface: eth1
+#
+# for example, to override.
+#
+iface: '{{ ansible_default_ipv4.interface }}'

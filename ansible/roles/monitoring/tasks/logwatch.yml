@@ -1,0 +1,13 @@
+---
+
+- name: Install logwatch
+  apt: pkg=logwatch state=present
+
+- name: Configure logwatch
+  copy: src=logwatch.conf dest=/etc/logwatch/conf/logwatch.conf
+
+- name: Remove logwatch's default cronjob
+  file: path=/etc/cron.daily/00logwatch state=absent
+
+- name: Configure weekly logwatch cronjob
+  cron: special_time=weekly job=/usr/sbin/logwatch name=logwatch

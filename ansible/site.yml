@@ -1,0 +1,20 @@
+---
+
+- hosts: all
+  user: deploy
+  sudo: true
+  roles:
+    - common
+    - monitoring
+
+- hosts: webservers
+  user: deploy
+  sudo: true
+  roles:
+    - memento-finatra
+
+- hosts: loadbalancers
+  user: deploy
+  sudo: true
+  roles:
+    - haproxy

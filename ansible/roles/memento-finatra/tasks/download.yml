@@ -1,0 +1,23 @@
+---
+
+- name: Configure pom.xml
+  template: src=maven/pom.xml.j2 dest={{ maven_pom_xml }}
+
+- name: Download artifact with maven dependency:get
+  command: "mvn org.apache.maven.plugins:maven-dependency-plugin:2.8:get
+           -Dartifact={{ artifact }}
+           -Dtransitive=false
+           --file {{ maven_pom_xml }}"
+
+- name: Delete existing artifact
+  file: name={{ artifact_file }} state=absent
+
+- name: Copy downloaded artifact to destination with maven dependency:copy
+  command: "mvn org.apache.maven.plugins:maven-dependency-plugin:2.8:copy
+           -Dartifact={{ artifact }}
+           -DoutputDirectory={{ artifact_dir }}
+           -DoutputAbsoluteArtifactFilename={{ artifact_file_name }}
+           -DoverWriteIfNewer=true
+           -DoverWriteReleases=true
+           -DoverWriteSnapshots=true
+           --file {{ maven_pom_xml }}"

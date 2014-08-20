@@ -1,0 +1,15 @@
+---
+
+- name: Install haproxy
+  apt: pkg=haproxy state=present
+
+- name: Enable haproxy
+  copy: src=haproxy dest=/etc/default/haproxy
+  notify: restart haproxy
+
+- name: Configure htproxy
+  template: src=haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg
+  notify: restart haproxy
+
+- name: Ensure haproxy service is running and enabled
+  service: name=haproxy state=started enabled=yes

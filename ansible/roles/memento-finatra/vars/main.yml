@@ -1,0 +1,57 @@
+---
+
+# artifact
+artifactId: memento-finatra
+groupId: com.example
+version: 1.0.0-SNAPSHOT
+
+# ports
+port: 7771
+admin_port: 9991
+proxy_port: 7770
+proxy_admin_port: 9990
+
+# files and dirs
+artifact_base_dir: "/opt/{{ artifactId }}"
+artifact_dir: "{{ artifact_base_dir }}/bin"
+artifact_file_name: "{{ artifactId }}-{{ version }}.zip"
+artifact_file: "{{ artifact_dir }}/{{ artifact_file_name }}"
+artifact: "{{ groupId }}:{{ artifactId }}:{{ version }}:zip"
+artifact_extracted_dir_name: "{{ artifactId }}-{{ version }}"
+artifact_extracted_dir: "{{ artifact_dir }}/{{ artifact_extracted_dir_name }}"
+
+# service
+service_name: "{{ artifactId }}"
+conf_dir: "{{ artifact_extracted_dir }}/conf"
+pid_file: "{{ artifact_dir }}/pid"
+app_config: "{{ conf_dir }}/application.conf"
+log_config: "{{ conf_dir }}/logback.xml"
+
+# nginx
+nginx_site_name: "{{ artifactId }}"
+nginx_domain: example.com
+nginx_base: "{{ artifact_base_dir }}/nginx"
+nginx_www_dir: "{{ nginx_base }}/www"
+nginx_admin_user: admin
+nginx_admin_password: TODO (crypted)
+nginx_admin_htpasswd_file: "{{ nginx_base }}/pwd"
+
+# maven
+maven_pom_xml: "~/.m2/pom.xml"
+maven_repositories:
+  - id: releases-repo
+    name: releases-repo
+    url: TODO
+    releases: true
+    snapshots: false
+
+  - id: snapshots-repo
+    name: snapshots-repo
+    url: TODO
+    releases: false
+    snapshots: true
+
+maven_extensions: []
+#   - groupId: TODO
+#     artifactId: TODO
+#     version: TODO

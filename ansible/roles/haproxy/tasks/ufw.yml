@@ -1,0 +1,6 @@
+---
+
+- name: Allow role's ports from all
+  ufw: rule=allow port={{ item }} proto=tcp
+  with_items:
+    - "{{ port }}"

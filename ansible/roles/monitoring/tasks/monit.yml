@@ -1,0 +1,15 @@
+---
+
+- name: Install monit
+  apt: pkg=monit state=present
+
+- name: Configure monit
+  copy: src=monitrc dest=/etc/monit/monitrc
+  notify: restart monit
+
+- name: Configure monit watches
+  copy: src=monit_{{ item }} dest=/etc/monit/conf.d/{{ item }}
+  with_items:
+    - sshd
+    - postfix
+  notify: restart monit

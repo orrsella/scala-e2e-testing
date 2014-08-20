@@ -1,0 +1,30 @@
+---
+
+- name: Get checksum for existing artifact
+  stat: path={{ artifact_file }}
+  register: existing
+
+- include: download.yml
+
+- name: Get checksum for downloaded (new) artifact
+  stat: path={{ artifact_file }}
+  register: new
+
+- name: Stop running service
+  service: name={{ service_name }} state=stopped
+  ignore_errors: yes
+  when: existing.stat.md5 is not defined or existing.stat.md5 != new.stat.md5
+
+- name: Cleanup artifact dir
+  shell: ls -1 {{ artifact_dir }}
+  register: files
+  when: existing.stat.md5 is not defined or existing.stat.md5 != new.stat.md5
+
+- name: Cleanup artifact dir
+  file: name="{{ artifact_dir }}/{{ item }}" state=absent
+  with_items: files.stdout_lines
+  when: item not in [ '{{ artifact_file_name }}' ] and (existing.stat.md5 is not defined or existing.stat.md5 != new.stat.md5)
+
+- name: Extract zip artifact
+  unarchive: copy=no src={{ artifact_file }} dest={{ artifact_dir }}
+  when: existing.stat.md5 is not defined or existing.stat.md5 != new.stat.md5
