@@ -41,10 +41,12 @@ scala/
 
 ## Requirements
 
-* Vagrant
-* Vagrant-cachier plugin
+The following should be installed on your dev machine:
 
-## Running
+* [Vagrant](https://www.vagrantup.com/downloads.html)
+* [Vagrant-cachier](https://github.com/fgrehm/vagrant-cachier) plugin: `$ vagrant plugin install vagrant-cachier` (optional but recommended)
+
+## Running The Tests
 
 There are 3 testing modes:
 
@@ -56,6 +58,14 @@ To run all tests together:
 
 ```bash
 $ sbt test-all
+```
+
+## Running Ansible Manually
+
+If you want to test only the ansible code, run:
+
+```bash
+$ ansible-playbook -i inventories/vagrant site.yml
 ```
 
 ## TODO

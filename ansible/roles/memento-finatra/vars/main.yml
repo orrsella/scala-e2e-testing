@@ -33,23 +33,23 @@ nginx_domain: example.com
 nginx_base: "{{ artifact_base_dir }}/nginx"
 nginx_www_dir: "{{ nginx_base }}/www"
 nginx_admin_user: admin
-nginx_admin_password: TODO (crypted)
+nginx_admin_password: TODO
 nginx_admin_htpasswd_file: "{{ nginx_base }}/pwd"
 
 # maven
 maven_pom_xml: "~/.m2/pom.xml"
-maven_repositories:
-  - id: releases-repo
-    name: releases-repo
-    url: TODO
-    releases: true
-    snapshots: false
+maven_repositories: []
+#   - id: releases-repo
+#     name: releases-repo
+#     url: TODO
+#     releases: true
+#     snapshots: false
 
-  - id: snapshots-repo
-    name: snapshots-repo
-    url: TODO
-    releases: false
-    snapshots: true
+#   - id: snapshots-repo
+#     name: snapshots-repo
+#     url: TODO
+#     releases: false
+#     snapshots: true
 
 maven_extensions: []
 #   - groupId: TODO
