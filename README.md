@@ -15,7 +15,7 @@ This project uses:
 
 The app itself is a [finatra](http://finatra.info/)-based "micro-service" (choosing finatra was an arbitrary decision, it could just as easily be another server framework/library, like [Play](https://playframework.com/), plain [finagle](https://twitter.github.io/finagle/), [spray](http://spray.io/), etc.).
 
-The simple example app is a commenting system, which allows storing, retrieving and searching for comments, and is named `memento`. It exposes REST endpoints and returns JSON.
+The simple example app is a notes system, which allows storing, retrieving and searching for notes, and is named `memento`. It exposes REST endpoints and returns JSON.
 
 The app is composed of two modules: `core` and `finatra`. The core contains as much of the code as possible, and includes unit and integration tests. The finatra module is the server aspect, and only contains the controller/http layer. It's modeled so we can later on easily replace the server module and use a different library/framework as our http server (or something else completely). Our end-to-end tests reside in this module, and they are specifically tailored to this service's API.
 
