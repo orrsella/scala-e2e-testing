@@ -6,7 +6,7 @@ object Dependencies {
   private val specs2        = "org.specs2"              %% "specs2"           % "2.4.1"
   private val mockito       = "org.mockito"             %  "mockito-all"      % "1.9.5"
   // private val dispatch      = "net.databinder.dispatch" %% "dispatch-core"    % "0.11.0"
-  // private val json4s        = "org.json4s"              %% "json4s-native"    % "3.2.9"
+  private val json4s        = "org.json4s"              %% "json4s-native"    % "3.2.9"
   private val logback       = "ch.qos.logback"          %  "logback-classic"  % "1.1.1"
   private val elasticsearch = "org.elasticsearch"       %  "elasticsearch"    % "1.2.1"
   private val jodatime      = "joda-time"               %  "joda-time"        % "2.3"
@@ -25,7 +25,7 @@ object Dependencies {
   val resolvers = Seq(Keys.resolvers += "twttr" at "http://maven.twttr.com/")
 
   val root    = deps()
-  val test    = deps(specs2, mockito, elasticsearch)
+  val testkit = deps(specs2, mockito, elasticsearch, json4s)
 
   val core    = deps(
     // dispatch,

@@ -8,7 +8,7 @@ object TheBuild extends Build {
   // -------------------------------------------------------------------------------------------------------------------
 
   lazy val root = Project("root", file("."))
-    .aggregate(test, core, finatra)
+    .aggregate(testkit, core, finatra)
     .configs(Configs.all: _*)
     .settings(Settings.root: _*)
 
@@ -16,12 +16,12 @@ object TheBuild extends Build {
   // Modules
   // -------------------------------------------------------------------------------------------------------------------
 
-  lazy val test = Project("memento-test", file("memento-test"))
+  lazy val testkit = Project("memento-testkit", file("memento-testkit"))
+    .dependsOn(core)
     .configs(Configs.all: _*)
-    .settings(Settings.test: _*)
+    .settings(Settings.testkit: _*)
 
   lazy val core = Project("memento-core", file("memento-core"))
-    .dependsOn(test % "test,it,e2e")
     .configs(Configs.all: _*)
     .settings(Settings.core: _*)
 
@@ -30,7 +30,7 @@ object TheBuild extends Build {
   // -------------------------------------------------------------------------------------------------------------------
 
   lazy val finatra = Project("memento-finatra", file("memento-finatra"))
-    .dependsOn(core, test % "test,it,e2e")
+    .dependsOn(core % "test,it,e2e", testkit % "test,it,e2e->compile")
     .configs(Configs.all: _*)
     .settings(Settings.finatra: _*)
 }

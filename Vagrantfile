@@ -14,6 +14,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # config.vm.provision "shell", path: "scripts/bootstrap"
   # config.vm.provision "shell", path: "scripts/apply"
 
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "ansible/site.yml"
+    ansible.inventory_path = "ansible/inventories/vagrant"
+  end
+
   config.vm.provider "virtualbox" do |v|
     v.cpus = 2
     v.memory = 2048

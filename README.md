@@ -23,7 +23,7 @@ The app is composed of two modules: `core` and `finatra`. The core contains as m
 
 The architecture includes:
 
-* [Ubuntu Server](http://www.ubuntu.com/server) for the operating system
+* [Ubuntu](http://www.ubuntu.com/server) for the operating system
 * [HAProxy](http://www.haproxy.org/) as a load balancer
 * [Nginx](http://nginx.org/) as an http server in front of the finatra app server (reverse proxy)
 * [Elasticsearch](http://www.elasticsearch.org/) as the datastore

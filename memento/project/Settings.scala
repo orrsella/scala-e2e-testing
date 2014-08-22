@@ -19,13 +19,13 @@ object Settings {
 
   private val finatraSettings = Seq(
     mainClass in (Compile, run) := Some("com.example.finatra.Main"),
-    vagrantFile := (baseDirectory in ThisBuild).value / "Vagrantfile",
+    vagrantFile := (baseDirectory in ThisBuild).value / ".." / "Vagrantfile",
     packagerConfDirResources := Seq("application.conf", "logback.xml")//,
     // puppetRepoDir := (baseDirectory in ThisBuild).value / "../spiderpic-puppet"
   )
 
   lazy val root     = shared ++ Publish.noop ++ Dependencies.root
-  lazy val test     = shared ++ Publish.noop ++ Dependencies.test
+  lazy val testkit     = shared ++ Publish.noop ++ Dependencies.testkit
   lazy val core     = shared ++ Publish.noop ++ Dependencies.core
   lazy val finatra  = shared ++ Publish.settings ++ Dependencies.finatra ++ Packager.settings ++ Vagrant.settings ++ finatraSettings
 }
