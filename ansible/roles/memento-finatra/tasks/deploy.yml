@@ -12,7 +12,9 @@
 
 - name: Stop running service
   service: name={{ service_name }} state=stopped
-  ignore_errors: yes
+  # ignore_errors: yes
+  register: command_result
+  failed_when: "command_result|failed and 'cannot find' not in command_result.msg"
   when: existing.stat.md5 is not defined or existing.stat.md5 != new.stat.md5
 
 - name: Cleanup artifact dir

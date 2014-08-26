@@ -71,6 +71,13 @@ $ ansible-playbook -i inventories/vagrant site.yml
 ## TODO
 
 - write module for maven downloading
-- update artifact's version
+- update artifact's version in ansible sources
 - different configs for vagrant/production
-- run vagrant provisioner for ansible
+- extract vagrant logic to an sbt-plugin (including the logic of up/suspend/destroy etc.)
+- Config testing?
+- sort out execution contexts
+
+
+//  def aGetNoteRequestFor(id: Int = 1): DriverRequest = get(s"/notes/$id")
+//  def aGetNotesRequestFor(offset: Int = 0, limit: Int = 10): DriverRequest = get(s"/notes?offset=$offset&limit=$limit")
+//  def aSearchNotesRequestFor(query: String = "Lorem ipsum"): DriverRequest = get(s"/notes?q=$query")

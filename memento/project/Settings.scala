@@ -24,8 +24,9 @@ object Settings {
     // puppetRepoDir := (baseDirectory in ThisBuild).value / "../spiderpic-puppet"
   )
 
-  lazy val root     = shared ++ Publish.noop ++ Dependencies.root
-  lazy val testkit     = shared ++ Publish.noop ++ Dependencies.testkit
-  lazy val core     = shared ++ Publish.noop ++ Dependencies.core
-  lazy val finatra  = shared ++ Publish.settings ++ Dependencies.finatra ++ Packager.settings ++ Vagrant.settings ++ finatraSettings
+  lazy val root           = shared ++ Publish.noop ++ Dependencies.root
+  lazy val core           = shared ++ Publish.noop ++ Dependencies.core
+  lazy val coreTestkit    = shared ++ Publish.noop ++ Dependencies.coreTestkit
+  lazy val finatra        = shared ++ Publish.settings ++ Dependencies.finatra ++ Packager.settings ++ Vagrant.settings ++ finatraSettings
+  lazy val finatraTestkit = shared ++ Publish.noop ++ Dependencies.finatraTestkit
 }

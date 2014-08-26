@@ -1,6 +1,6 @@
-package com.example.memento.testkit.drivers.matchers
+package com.example.memento.finatra.testkit.matchers
 
-import com.example.memento.testkit.drivers.ControllerDriver
+import com.example.memento.finatra.testkit.drivers.ControllerDriver
 import org.specs2.matcher.{Matcher, Matchers}
 
 trait ResponseMatchers extends Matchers {

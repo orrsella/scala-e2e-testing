@@ -24,25 +24,11 @@ object Dependencies {
 
   val resolvers = Seq(Keys.resolvers += "twttr" at "http://maven.twttr.com/")
 
-  val root    = deps()
-  val testkit = deps(specs2, mockito, elasticsearch, json4s)
-
-  val core    = deps(
-    // dispatch,
-    // json4s,
-    elasticsearch,
-    jodatime,
-    jodaconvert,
-    config,
-    // commonsLang,
-    // commonsIo,
-    specs2Test,
-    mockitoTest,
-    finagleCore,
-    finagleHttp,
-    twitterUtil)
-
-  val finatra = deps(finatraDep, specs2Test, config)
+  val root            = deps()
+  val core            = deps(elasticsearch, jodatime, jodaconvert, config, specs2Test, mockitoTest, finagleCore, finagleHttp, twitterUtil, logback)
+  val coreTestkit     = deps(specs2, mockito, elasticsearch, json4s)
+  val finatra         = deps(finatraDep, specs2Test, config, json4s, logback)
+  val finatraTestkit  = deps(finatraDep, specs2, mockito, json4s)
 
   private def deps(modules: ModuleID*): Seq[Setting[_]] = Seq(libraryDependencies ++= modules)
 }

@@ -7,7 +7,7 @@ import com.twitter.finagle.http.Http
 import com.twitter.finagle.Service
 import java.net.InetSocketAddress
 import org.jboss.netty.buffer.ChannelBuffers
-import org.jboss.netty.handler.codec.http.{DefaultHttpRequest, HttpMethod, HttpVersion}
+import org.jboss.netty.handler.codec.http.{HttpHeaders, DefaultHttpRequest, HttpMethod, HttpVersion}
 import org.jboss.netty.handler.codec.{http => netty}
 import org.jboss.netty.util.CharsetUtil
 import scala.collection.JavaConverters._
@@ -25,10 +25,14 @@ class FinagleHttpClient(host: String, port: Int) extends HttpClient {
 
   override def execute(request: HttpRequest)(implicit context: ExecutionContext): Future[HttpResponse] = {
     val method = new HttpMethod(request.method.toString)
-    val req = new DefaultHttpRequest(HttpVersion.HTTP_1_1, method, request.uri)
+    val req = new DefaultHttpRequest(HttpVersion.HTTP_1_1, method, request.path)
 
     request.headers.map(header => req.headers.add(header._1, header._2))
-    request.body.map(body => req.setContent(ChannelBuffers.copiedBuffer(body, utf8)))
+    request.body.map { body =>
+      val buffer = ChannelBuffers.copiedBuffer(body, utf8)
+      req.setContent(buffer)
+      req.headers.add(HttpHeaders.Names.CONTENT_LENGTH, buffer.readableBytes().toString)
+    }
 
     // TODO: handle request.params
 
@@ -39,6 +43,6 @@ class FinagleHttpClient(host: String, port: Int) extends HttpClient {
       HttpResponse(status, body, headers)
     }
 
-    future.toScalaFuture
+    future
   }
 }
