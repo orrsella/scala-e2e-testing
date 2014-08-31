@@ -24,12 +24,4 @@ object Implicits {
     }
     p
   }
-
-//  implicit class RichTwitterFuture[T](val future: TwitterFuture[T]) extends AnyVal {
-//    def toScalaFuture: Future[T] = twitterFutureToScalaFuture(future)
-//  }
-//
-//  implicit class RichFuture[T](val future: Future[T]) extends AnyVal {
-//    def toTwitterFuture: TwitterFuture[T] = scalaFutureToTwitterFuture(future)
-//  }
 }

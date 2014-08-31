@@ -1,14 +1,14 @@
 package com.example.memento.finatra.testkit.drivers
 
 import com.example.memento.core.http.HttpRequest
-import com.example.memento.core.http.dispatch.FinagleHttpClient
+import com.example.memento.core.http.finagle.FinagleHttpClient
 import scala.concurrent.{ExecutionContext, Await}
 import scala.concurrent.duration._
 import scala.language.postfixOps
 
 trait FinagleHttpRequestExecutor {
-  private val host = "localhost" // TODO: remove
-  private val port = 8080 // TODO: remove?
+  private val host = "localhost"
+  private val port = 8080
   private val client = new FinagleHttpClient(host, port)
   val timeout = 2000 millis
 

@@ -1,4 +1,4 @@
-package com.example.memento.core.http.dispatch
+package com.example.memento.core.http.finagle
 
 import org.specs2.mutable.Specification
 

@@ -1,4 +1,4 @@
-package com.example.memento.core.http.dispatch
+package com.example.memento.core.http.finagle
 
 import com.example.memento.core.concurrent.Implicits._
 import com.example.memento.core.http.{HttpClient, HttpRequest, HttpResponse}
