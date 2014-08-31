@@ -29,7 +29,6 @@ log_config: "{{ conf_dir }}/logback.xml"
 
 # nginx
 nginx_site_name: "{{ artifactId }}"
-nginx_domain: example.com
 nginx_base: "{{ artifact_base_dir }}/nginx"
 nginx_www_dir: "{{ nginx_base }}/www"
 nginx_admin_user: admin

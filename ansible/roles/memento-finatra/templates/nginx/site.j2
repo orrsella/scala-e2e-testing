@@ -1,7 +1,6 @@
 server {
 
     listen          {{ proxy_port }};
-    server_name     {{ nginx_domain }}   *.{{ nginx_domain }};
     access_log      /var/log/nginx/{{ nginx_site_name }}.access.log custom_access;
     error_log       /var/log/nginx/{{ nginx_site_name }}.error.log;
 
@@ -28,7 +27,6 @@ server {
 server {
 
     listen          {{ proxy_admin_port }};
-    server_name     admin.{{ nginx_domain }}     *.admin.{{ nginx_domain }};
     access_log      /var/log/nginx/admin.{{ nginx_site_name }}.access.log custom_access;
     error_log       /var/log/nginx/admin.{{ nginx_site_name }}.error.log;
 
