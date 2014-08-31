@@ -10,19 +10,6 @@ object Main extends App {
   System.setProperty("com.twitter.finatra.config.port", ":" + Config.port)
   System.setProperty("com.twitter.finatra.config.adminPort", ":" + Config.adminPort)
 
-
-//  import com.twitter.logging.config._
-//
-//  val config = new LoggerConfig {
-//    node = ""
-//    level = Logger.ALL
-//    handlers = new FileHandlerConfig {
-//      filename = "/var/log/memento-finatra.log"
-//      roll = Policy.SigHup
-//    }
-//  }
-//  config()
-
   val notesDao = new InMemoryNotesDao()
 
   val server = new FinatraServer

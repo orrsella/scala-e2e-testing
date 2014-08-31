@@ -1,18 +1,17 @@
 package com.example.memento.core.model
 
+import com.example.memento.core.exceptions.InvalidNoteIdException
 import java.util.UUID
 
-case class NoteId(id: UUID) extends AnyVal
+class NoteId(val uuid: UUID) extends AnyVal
 
-//object NoteId {
-//  private def apply() = ???
-//  def random = NoteId(UUID.randomUUID())
-//}
+object NoteId {
+  def random = new NoteId(UUID.randomUUID)
+  def apply(uuid: UUID): NoteId = new NoteId(uuid)
 
-//trait Id {
-//  def id: UUID
-//}
-//
-//trait IdCompanion[T <: Id] {
-//  def random: T =
-//}
+  def apply(uuid: String): NoteId = try {
+    new NoteId(UUID.fromString(uuid))
+  } catch {
+    case e: Exception => throw new InvalidNoteIdException(uuid, e)
+  }
+}

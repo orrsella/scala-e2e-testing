@@ -76,6 +76,10 @@ $ ansible-playbook -i inventories/vagrant site.yml
 - extract vagrant logic to an sbt-plugin (including the logic of up/suspend/destroy etc.)
 - Config testing?
 - sort out execution contexts
+- set version to deploy in ansible via vagrant command running in sbt
+- make exceptions in core http agnostic, only referencing an ErrorType (internal, not found, etc.)
+- add a mapper between BaseRuntimeException to http status code
+- should error handling be a part of the BaseController or ErrorController?
 
 
 //  def aGetNoteRequestFor(id: Int = 1): DriverRequest = get(s"/notes/$id")

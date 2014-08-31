@@ -3,7 +3,7 @@ package com.example.memento.core
 import org.slf4j.LoggerFactory
 
 trait Logging {
-  def logger = new Logger
+  lazy val logger = new Logger
 }
 
 class Logger {

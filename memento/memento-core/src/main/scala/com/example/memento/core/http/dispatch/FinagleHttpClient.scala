@@ -28,6 +28,11 @@ class FinagleHttpClient(host: String, port: Int) extends HttpClient {
     val req = new DefaultHttpRequest(HttpVersion.HTTP_1_1, method, request.path)
 
     request.headers.map(header => req.headers.add(header._1, header._2))
+
+    if (!req.headers.contains("Host") || req.headers.contains("host")) {
+      req.headers.add("Host", host)
+    }
+
     request.body.map { body =>
       val buffer = ChannelBuffers.copiedBuffer(body, utf8)
       req.setContent(buffer)
