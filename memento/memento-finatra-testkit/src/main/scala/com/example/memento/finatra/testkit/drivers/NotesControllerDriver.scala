@@ -14,7 +14,7 @@ trait NotesControllerDriver {
     val headers: Map[String, String] = Map()
     val body: Option[String] = Some("{ \"text\": \"" + text + "\" }")
 
-    override protected def buildResponse(response: Response): AddNoteResponse = new AddNoteResponse(response)
+    protected def buildResponse(response: Response): AddNoteResponse = new AddNoteResponse(response)
     def withText(text: String) = copy(text = text)
   }
 
@@ -25,7 +25,7 @@ trait NotesControllerDriver {
     val headers: Map[String, String] = Map()
     val body: Option[String] = None
 
-    override protected def buildResponse(response: Response): GetNoteResponse = new GetNoteResponse(response)
+    protected def buildResponse(response: Response): GetNoteResponse = new GetNoteResponse(response)
     def withId(id: String) = copy(id = id)
   }
 

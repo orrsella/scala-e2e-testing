@@ -1,42 +1,34 @@
 package com.example.memento.finatra.controllers
 
 import com.example.memento.core.Logging
-import com.example.memento.core.exceptions.BaseRuntimeException
-import com.example.memento.finatra.exceptions.ExceptionTypeToHttpStatusMapper
+import com.example.memento.finatra.exceptions.mappers.ExceptionToErrorResponseMapper
 import com.example.memento.finatra.responses.ErrorResponse
-import com.twitter.finatra.{Controller, Request}
+import com.twitter.finatra.{ResponseBuilder, Controller}
 import com.twitter.logging.LoggerFactory
+import com.twitter.util.Future
 
 abstract class BaseController extends Controller with Logging {
 
-  import BaseController._
-  disableTwitterLogging
-  val mapper = new ExceptionTypeToHttpStatusMapper
+  BaseController.disableTwitterLogging
+  private val mapper = new ExceptionToErrorResponseMapper
 
-  error { req: Request =>
-    val response = req.error match {
-      case None =>
-        logger.error("Unknown error during request")
-        DefaultError
-      case Some(e: Throwable) =>
-        logger.error("Error during request: ", e)
-        e match {
-          case BaseRuntimeException(exceptionType) => ErrorResponse(mapper.map(exceptionType), e.getMessage)
-          case _ => ErrorResponse(DefaultErrorStatus, e.getMessage)
-        }
-    }
-
-    render.status(response.status).json(response).toFuture
+  error { req =>
+    log(req.error)
+    response(mapper(req.error))
   }
 
   notFound { req =>
-    render.status(NotFoundError.status).json(NotFoundError).toFuture
+    response(ErrorResponse(404, "Not Found"))
+  }
+
+  private def response(err: ErrorResponse): Future[ResponseBuilder] = render.status(err.status).json(err).toFuture
+
+  private def log(throwable: Option[Throwable]): Unit = throwable match {
+    case Some(t)  => logger.error("Error during request: ", t)
+    case None     => logger.error("Unknown error during request")
   }
 }
 
 object BaseController {
   private lazy val disableTwitterLogging: Unit = LoggerFactory().apply()
-  private val DefaultErrorStatus = 500
-  private val DefaultError = ErrorResponse(DefaultErrorStatus, "Internal Server Error")
-  private val NotFoundError = ErrorResponse(404, "Not Found")
 }

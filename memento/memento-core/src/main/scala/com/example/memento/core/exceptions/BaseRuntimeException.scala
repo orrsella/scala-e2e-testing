@@ -1,6 +1,6 @@
 package com.example.memento.core.exceptions
 
-class BaseRuntimeException(
+abstract class BaseRuntimeException(
     val exceptionType: ExceptionType,
     message: String,
     cause: Throwable)

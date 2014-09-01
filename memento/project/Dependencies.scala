@@ -3,7 +3,7 @@ import sbt.Keys._
 
 object Dependencies {
 
-  private val specs2        = "org.specs2"              %% "specs2"           % "2.4.1"
+  private val specs2        = "org.specs2"              %% "specs2"           % "2.4.2"
   private val mockito       = "org.mockito"             %  "mockito-all"      % "1.9.5"
   // private val dispatch      = "net.databinder.dispatch" %% "dispatch-core"    % "0.11.0"
   private val json4s        = "org.json4s"              %% "json4s-native"    % "3.2.9"

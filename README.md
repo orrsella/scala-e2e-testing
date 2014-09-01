@@ -74,13 +74,10 @@ $ ansible-playbook -i inventories/vagrant site.yml
 - update artifact's version in ansible sources
 - different configs for vagrant/production
 - extract vagrant logic to an sbt-plugin (including the logic of up/suspend/destroy etc.)
-- Config testing?
+- Configuration testing?
 - sort out execution contexts
 - set version to deploy in ansible via vagrant command running in sbt
-- make exceptions in core http agnostic, only referencing an ErrorType (internal, not found, etc.)
-- add a mapper between BaseRuntimeException to http status code
-- should error handling be a part of the BaseController or ErrorController?
-
+- how to test logging in BaseController error handling
 
 //  def aGetNoteRequestFor(id: Int = 1): DriverRequest = get(s"/notes/$id")
 //  def aGetNotesRequestFor(offset: Int = 0, limit: Int = 10): DriverRequest = get(s"/notes?offset=$offset&limit=$limit")

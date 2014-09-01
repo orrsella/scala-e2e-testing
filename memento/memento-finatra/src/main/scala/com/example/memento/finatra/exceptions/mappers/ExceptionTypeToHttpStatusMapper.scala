@@ -1,10 +1,10 @@
-package com.example.memento.finatra.exceptions
+package com.example.memento.finatra.exceptions.mappers
 
 import com.example.memento.core.exceptions.ExceptionType
 import com.example.memento.core.exceptions.ExceptionType._
 
 class ExceptionTypeToHttpStatusMapper {
-  def map(exceptionType: ExceptionType): Int = exceptionType match {
+  def apply(exceptionType: ExceptionType): Int = exceptionType match {
     case BadRequest         => 400
     case Unauthorized       => 401
     case NotFound           => 404
