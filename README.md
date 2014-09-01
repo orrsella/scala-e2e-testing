@@ -1,6 +1,6 @@
 # scala-e2e
 
-This is a sample project that shows how to write truly end-to-end tests in Scala using Ansible and Vagrant. It accompanies a talk I gave at [Scalapeno](http://www.scalapeno.org.il/) 2014 titled *"True end-to-end testing in Scala"*. You can read more about this project and the concepts in incorporates it [this series of blog posts](http://orrsella.com).
+This is a sample project that shows how to write truly end-to-end tests in Scala using Ansible and Vagrant. It accompanies a talk I gave at [Scalapeno](http://www.scalapeno.org.il/) 2014 titled [*"True End-to-End Testing in Scala"*](http://www.scalapeno.org.il/#!orr-sella/czmu). You can read more about this project and the concepts in incorporates it [this series of blog posts](http://orrsella.com).
 
 ## Project
 
