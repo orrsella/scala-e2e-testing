@@ -6,6 +6,7 @@ import com.twitter.finatra.Controller
 import org.specs2.mutable.Specification
 
 class BaseControllerIntegrationTest extends Specification with ControllerIntegrationTest with BaseControllerDriver {
+  sequential
 
   val controller: Controller = new BaseController {
     post("/bar") { req =>

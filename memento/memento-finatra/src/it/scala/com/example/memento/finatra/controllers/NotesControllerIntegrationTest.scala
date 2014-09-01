@@ -8,6 +8,7 @@ import org.specs2.mutable.Specification
  * Acceptance Test for NotesController
  */
 class NotesControllerIntegrationTest extends Specification with ControllerIntegrationTest with NotesControllerDriver {
+  sequential
 
   val notesDao = new InMemoryNotesDao
   val controller = new NotesController(notesDao)
