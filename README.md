@@ -51,6 +51,7 @@ There are 3 testing modes:
 To run all tests together:
 
 ```bash
+$ cd ./memento
 $ sbt test-all
 ```
 
@@ -59,5 +60,5 @@ $ sbt test-all
 If you want to test only the ansible code, run:
 
 ```bash
-$ ansible-playbook -i inventories/vagrant site.yml
+$ ansible-playbook -i ansible/inventories/vagrant site.yml
 ```
