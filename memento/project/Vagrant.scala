@@ -19,12 +19,12 @@ object Vagrant {
 
 class Vagrant(vagrantFile: File) {
 
-  private var previousState: VagrantState = Unknown
+  private var prevStatus: VagrantStatus = Unknown
   private val vagrantDir = vagrantFile.getParentFile
 
   def setup(): Unit = {
-    previousState = state()
-    previousState match {
+    prevStatus = status()
+    prevStatus match {
       case Running    => provision()
       case Saved      => up(); provision()
       case NotCreated => up()
@@ -32,10 +32,10 @@ class Vagrant(vagrantFile: File) {
     }
   }
 
-  def cleanup(): Unit = if (previousState != Running) suspend()
+  def cleanup(): Unit = if (prevStatus != Running) suspend()
 
   // cli method wrappers
-  private def state(): VagrantState = {
+  private def status(): VagrantStatus = {
     val res = Process("vagrant" :: "status" :: Nil, vagrantFile.getParentFile)!!
 
     if (res.contains("running (")) Running
@@ -49,9 +49,9 @@ class Vagrant(vagrantFile: File) {
   private def suspend(): Unit = Process("vagrant" :: "suspend" :: Nil, vagrantDir)!
   private def destroy(): Unit = Process("vagrant" :: "destroy" :: "-f" :: Nil, vagrantDir)!
 
-  sealed trait VagrantState
-  case object Running extends VagrantState
-  case object Saved extends VagrantState
-  case object NotCreated extends VagrantState
-  case object Unknown extends VagrantState
+  sealed trait VagrantStatus
+  case object Running extends VagrantStatus
+  case object Saved extends VagrantStatus
+  case object NotCreated extends VagrantStatus
+  case object Unknown extends VagrantStatus
 }
