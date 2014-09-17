@@ -7,10 +7,14 @@ import org.specs2.mutable.Specification
 /**
  * End-to-end Test for NotesController
  */
-class NotesControllerEndToEndTest extends Specification with NotesControllerDriver with FinagleHttpRequestExecutor with ResponseMatchers {
+class NotesControllerEndToEndTest
+  extends Specification
+  with NotesControllerDriver
+  with FinagleHttpRequestExecutor
+  with ResponseMatchers {
 
   "Notes controller" should {
-    "add a note and then successfully return in" in {
+    "add a note and then successfully get it" in {
       val response = anAddNoteRequest.withText("Hello world!").execute()
       response must beOk
       response.noteId must not beEmpty
