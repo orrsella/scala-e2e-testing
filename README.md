@@ -39,6 +39,7 @@ To run the tests the following should be installed on your dev machine:
 * [Sbt](http://www.scala-sbt.org/)
 * [Vagrant](https://www.vagrantup.com/downloads.html)
 * [Vagrant-cachier](https://github.com/fgrehm/vagrant-cachier) plugin: `$ vagrant plugin install vagrant-cachier` (optional but recommended)
+* [Ansible](http://www.ansible.com/)
 
 ## Running The Tests
 
