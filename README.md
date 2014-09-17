@@ -1,6 +1,6 @@
 # scala-e2e-testing
 
-This is a sample project that shows how to write truly end-to-end tests in Scala using Ansible and Vagrant. It accompanies a talk I gave at [Scalapeno](http://www.scalapeno.org.il/) 2014 titled [*"True End-to-End Testing in Scala"*](http://www.scalapeno.org.il/#!orr-sella/czmu). You can read more about this project and the concepts in incorporates it [this series of blog posts](http://orrsella.com).
+This is a sample project that shows how to write truly end-to-end tests in Scala. It accompanies a talk I'm giving at [Scalapeno](http://www.scalapeno.org.il/) 2014 titled [*"True End-to-End Testing in Scala"*](http://www.scalapeno.org.il/#!orr-sella/czmu).
 
 ## Project
 
@@ -15,9 +15,9 @@ This project uses:
 
 The app itself is a [finatra](http://finatra.info/)-based "micro-service" (choosing finatra was an arbitrary decision, it could just as easily be another server framework/library, like [Play](https://playframework.com/), plain [finagle](https://twitter.github.io/finagle/), [spray](http://spray.io/), etc.).
 
-The simple example app is a notes system, which allows storing, retrieving and searching for notes, and is named `memento`. It exposes REST endpoints and returns JSON.
+The simple example app is a notes-taking web service, which allows storing, retrieving, searching for and translating notes, and is named `memento`. It exposes a REST API and returns JSON.
 
-The app is composed of two modules: `core` and `finatra`. The core contains as much of the code as possible, and includes unit and integration tests. The finatra module is the server aspect, and only contains the controller/http layer. It's modeled so we can later on easily replace the server module and use a different library/framework as our http server (or something else completely). Our end-to-end tests reside in this module, and they are specifically tailored to this service's API.
+The app is composed of two modules: `core` and `finatra`. The core contains as much of the code as possible, and includes unit and integration tests. The finatra module is the server aspect, and only contains the controller/http layer. It's modeled so we can later on easily replace the server module and use a different library/framework as our http server (or something else completely). Our end-to-end tests reside in this module.
 
 ## Infrastructure/Architecture
 
@@ -32,17 +32,11 @@ The architecture includes:
 
 The scala app and ansible playbooks are joined here in the same git repository mainly for brevity and ease-of-use. It is suggested that real projects separate them into two repositories (or more if you have more then one deployable) to allow more flexibility, but this is up to you.
 
-## Structure
-
-```
-ansible/
-scala/
-```
-
 ## Requirements
 
-The following should be installed on your dev machine:
+To run the tests the following should be installed on your dev machine:
 
+* [Sbt](http://www.scala-sbt.org/)
 * [Vagrant](https://www.vagrantup.com/downloads.html)
 * [Vagrant-cachier](https://github.com/fgrehm/vagrant-cachier) plugin: `$ vagrant plugin install vagrant-cachier` (optional but recommended)
 
@@ -67,18 +61,3 @@ If you want to test only the ansible code, run:
 ```bash
 $ ansible-playbook -i inventories/vagrant site.yml
 ```
-
-## TODO
-
-- write module for maven downloading
-- update artifact's version in ansible sources
-- different configs for vagrant/production
-- extract vagrant logic to an sbt-plugin (including the logic of up/suspend/destroy etc.)
-- Configuration testing?
-- sort out execution contexts
-- set version to deploy in ansible via vagrant command running in sbt
-- how to test logging in BaseController error handling
-
-//  def aGetNoteRequestFor(id: Int = 1): DriverRequest = get(s"/notes/$id")
-//  def aGetNotesRequestFor(offset: Int = 0, limit: Int = 10): DriverRequest = get(s"/notes?offset=$offset&limit=$limit")
-//  def aSearchNotesRequestFor(query: String = "Lorem ipsum"): DriverRequest = get(s"/notes?q=$query")
