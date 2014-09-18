@@ -28,7 +28,7 @@ class NotesControllerEndToEndTest
       val addResp = anAddNoteRequest.withText("Good morning").execute()
       val translated = aTranslateNoteRequest.withId(addResp.noteId).withLang("es").execute()
       translated must beOk
-      translated.text must_== "Foo"
+      translated.text must_== "Buenos días"
     }
   }
 }
