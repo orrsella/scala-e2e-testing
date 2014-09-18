@@ -6,6 +6,7 @@ trait NotesControllerDriver {
 
   def anAddNoteRequest = AddNoteRequest()
   def aGetNoteRequest = GetNoteRequest()
+  def aTranslateNoteRequest = TranslateNoteRequest()
 
   case class AddNoteRequest(text: String = "Lorem ipsum") extends Request[AddNoteResponse] {
     val method = HttpMethod.POST
@@ -27,6 +28,18 @@ trait NotesControllerDriver {
 
     protected def buildResponse(response: Response): GetNoteResponse = new GetNoteResponse(response)
     def withId(id: String) = copy(id = id)
+  }
+
+  case class TranslateNoteRequest(id: String = "123", lang: String = "en") extends Request[GetNoteResponse] {
+    val method = HttpMethod.GET
+    val path = s"/translate?noteId=$id&lang=$lang"
+    val params: Map[String, String] = Map()
+    val headers: Map[String, String] = Map()
+    val body: Option[String] = None
+
+    protected def buildResponse(response: Response): GetNoteResponse = new GetNoteResponse(response)
+    def withId(id: String) = copy(id = id)
+    def withLang(lang: String) = copy(lang = lang)
   }
 
   class AddNoteResponse(response: Response) extends BaseResponse(response) with JsonResponse {

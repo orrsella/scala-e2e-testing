@@ -15,13 +15,20 @@ class NotesControllerEndToEndTest
 
   "Notes controller" should {
     "add a note and then successfully get it" in {
-      val response = anAddNoteRequest.withText("Hello world!").execute()
-      response must beOk
-      response.noteId must not beEmpty
+      val addResp = anAddNoteRequest.withText("Hello world!").execute()
+      addResp must beOk
+      addResp.noteId must not beEmpty
 
-      val note = aGetNoteRequest.withId(response.noteId).execute()
-      note must beOk
-      note.text must_== "Hello world!"
+      val getResp = aGetNoteRequest.withId(addResp.noteId).execute()
+      getResp must beOk
+      getResp.text must_== "Hello world!"
+    }
+
+    "add a note and then get it translated" in {
+      val addResp = anAddNoteRequest.withText("Good morning").execute()
+      val translated = aTranslateNoteRequest.withId(addResp.noteId).withLang("es").execute()
+      translated must beOk
+      translated.text must_== "Foo"
     }
   }
 }

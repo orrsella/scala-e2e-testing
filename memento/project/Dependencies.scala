@@ -26,7 +26,7 @@ object Dependencies {
   val resolvers = Seq(Keys.resolvers += "twttr" at "http://maven.twttr.com/")
 
   val root            = deps()
-  val core            = deps(elasticsearch, jodatime, jodaconvert, config, specs2Test, mockitoTest, finagleCore, finagleHttp, twitterUtil, logback, elastic4s)
+  val core            = deps(elasticsearch, jodatime, jodaconvert, config, specs2Test, mockitoTest, finagleCore, finagleHttp, twitterUtil, logback, elastic4s, json4s)
   val coreTestkit     = deps(specs2, mockito, elasticsearch, json4s, commonsIo)
   val finatra         = deps(finatraDep, specs2Test, config, json4s, logback)
   val finatraTestkit  = deps(finatraDep, specs2, mockito, json4s)

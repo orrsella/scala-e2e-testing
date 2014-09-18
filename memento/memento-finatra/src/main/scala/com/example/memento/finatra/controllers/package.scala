@@ -1,6 +1,6 @@
 package com.example.memento.finatra
 
-import com.example.memento.finatra.exceptions.{InvalidRequestBodyException, RouteParamNotFoundException}
+import com.example.memento.finatra.exceptions.{QueryParamNotFoundException, InvalidRequestBodyException, RouteParamNotFoundException}
 import com.twitter.finatra.Request
 import org.jboss.netty.util.CharsetUtil
 import org.json4s.DefaultFormats
@@ -12,6 +12,7 @@ package object controllers {
 
   implicit class RichRequest(val request: Request) extends AnyVal {
     def getRouteParam(name: String): String = request.routeParams.getOrElse(name, throw new RouteParamNotFoundException(name))
+    def getQueryParam(name: String): String = request.params.getOrElse(name, throw new QueryParamNotFoundException(name))
 
     def bodyAs[T](implicit m: Manifest[T]): T = {
       try {

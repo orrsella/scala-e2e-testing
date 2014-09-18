@@ -13,15 +13,22 @@ import org.jboss.netty.util.CharsetUtil
 import scala.collection.JavaConverters._
 import scala.concurrent.{ExecutionContext, Future}
 
-class FinagleHttpClient(host: String, port: Int) extends HttpClient {
+class FinagleHttpClient(host: String, port: Int, secure: Boolean = false) extends HttpClient {
 
   private val utf8 = CharsetUtil.UTF_8
 
-  private val client: Service[netty.HttpRequest, netty.HttpResponse] = ClientBuilder()
-    .codec(Http())
-    .hosts(new InetSocketAddress(host, port))
-    .hostConnectionLimit(1)
-    .build()
+  private val client: Service[netty.HttpRequest, netty.HttpResponse] = {
+    var builder = ClientBuilder()
+      .codec(Http())
+      .hosts(new InetSocketAddress(host, port))
+      .hostConnectionLimit(1)
+
+    if (secure) {
+      builder = builder.tls(host)
+    }
+
+    builder.build()
+  }
 
   override def execute(request: HttpRequest)(implicit context: ExecutionContext): Future[HttpResponse] = {
     val method = new HttpMethod(request.method.toString)

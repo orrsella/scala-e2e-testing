@@ -3,7 +3,7 @@ package com.example.memento.finatra.controllers
 import com.example.memento.core.Logging
 import com.example.memento.finatra.exceptions.mappers.ExceptionToErrorResponseMapper
 import com.example.memento.finatra.responses.ErrorResponse
-import com.twitter.finatra.{ResponseBuilder, Controller}
+import com.twitter.finatra.{Controller, ResponseBuilder}
 import com.twitter.logging.LoggerFactory
 import com.twitter.util.Future
 

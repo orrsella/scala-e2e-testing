@@ -10,12 +10,12 @@ class InMemoryNotesDao(implicit context: ExecutionContext) extends NotesDao {
 
   private val map = mutable.Map[NoteId, Note]()
 
-  override def add(newNote: NewNote): Future[NoteId] = {
+  def add(newNote: NewNote): Future[NoteId] = {
     val id = NoteId(UUID.randomUUID)
     val note = Note(id, newNote.text)
     map += id -> note
     Future.successful(id)
   }
 
-  override def get(id: NoteId): Future[Option[Note]] = Future.successful(map.get(id))
+  def get(id: NoteId): Future[Option[Note]] = Future.successful(map.get(id))
 }
