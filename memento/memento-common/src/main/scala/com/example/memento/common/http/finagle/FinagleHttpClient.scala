@@ -5,6 +5,7 @@ import com.example.memento.common.http.{HttpClient, HttpRequest, HttpResponse}
 import com.twitter.finagle.builder.ClientBuilder
 import com.twitter.finagle.http.Http
 import com.twitter.finagle.Service
+import com.twitter.logging.LoggerFactory
 import java.net.InetSocketAddress
 import org.jboss.netty.buffer.ChannelBuffers
 import org.jboss.netty.handler.codec.http.HttpHeaders.Names._
@@ -16,6 +17,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class FinagleHttpClient(host: String, port: Int, secure: Boolean = false) extends HttpClient {
 
+  FinagleHttpClient.disableTwitterLogging
   private val utf8 = CharsetUtil.UTF_8
 
   private val client: Service[netty.HttpRequest, netty.HttpResponse] = {
@@ -68,4 +70,8 @@ class FinagleHttpClient(host: String, port: Int, secure: Boolean = false) extend
       req.headers.add(name, value)
     }
   }
+}
+
+object FinagleHttpClient {
+  private lazy val disableTwitterLogging: Unit = LoggerFactory().apply()
 }

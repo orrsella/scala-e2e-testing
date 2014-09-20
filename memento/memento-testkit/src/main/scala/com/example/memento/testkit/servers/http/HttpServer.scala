@@ -1,14 +1,16 @@
-package com.example.memento.testkit.servers
+package com.example.memento.testkit.servers.http
 
 import com.twitter.finagle.Service
 import com.twitter.finagle.builder.{Server, ServerBuilder}
 import com.twitter.finagle.http.Http
+import com.twitter.logging.LoggerFactory
 import com.twitter.util.{Await, Future}
 import java.net.InetSocketAddress
 import org.jboss.netty.handler.codec.http.{HttpRequest, HttpResponse}
 
 abstract class HttpServer(port: Int) {
 
+  HttpServer.disableTwitterLogging
   private var server: Option[Server] = None
 
   private lazy val service = new Service[HttpRequest, HttpResponse] {
@@ -31,4 +33,8 @@ abstract class HttpServer(port: Int) {
     Await.result(service.close())
     server.map(s => Await.result(s.close()))
   }
+}
+
+object HttpServer {
+  private lazy val disableTwitterLogging: Unit = LoggerFactory().apply()
 }

@@ -2,6 +2,7 @@ package com.example.memento.finatra
 
 import com.example.memento.testkit.drivers.{FinagleHttpRequestExecutor, NotesControllerDriver}
 import com.example.memento.testkit.matchers.ResponseMatchers
+import com.example.memento.testkit.servers.http.FakeYandexTranslateServer
 import org.specs2.mutable.Specification
 
 /**
@@ -12,6 +13,13 @@ class NotesControllerEndToEndTest
   with NotesControllerDriver
   with FinagleHttpRequestExecutor
   with ResponseMatchers {
+
+  private val port = 9921
+  private val server = new FakeYandexTranslateServer(port)
+
+  step {
+//    server.start()
+  }
 
   "Notes controller" should {
     "add a note and then successfully get it" in {
@@ -40,5 +48,9 @@ class NotesControllerEndToEndTest
       val response = aGetNoteRequest.withId("foo").execute()
       response must beBadRequest
     }
+  }
+
+  step {
+//    server.stop()
   }
 }
