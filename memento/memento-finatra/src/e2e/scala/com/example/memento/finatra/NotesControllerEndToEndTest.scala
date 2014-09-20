@@ -30,5 +30,15 @@ class NotesControllerEndToEndTest
       translated must beOk
       translated.text must_== "Buenos días"
     }
+
+    "return not found for a get non-existing note request" in {
+      val response = aGetNoteRequest.withId("fb293322-c23d-4ab7-8ca6-7a0bb0c18cac").execute()
+      response must beNotFound
+    }
+
+    "return bad request for a get note request with an invalid note id" in {
+      val response = aGetNoteRequest.withId("foo").execute()
+      response must beBadRequest
+    }
   }
 }

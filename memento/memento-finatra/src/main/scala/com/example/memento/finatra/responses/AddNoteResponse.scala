@@ -1,5 +1,5 @@
 package com.example.memento.finatra.responses
 
-import com.example.memento.core.model.NoteId
+import java.util.UUID
 
-case class AddNoteResponse(noteId: NoteId)
+case class AddNoteResponse(noteId: UUID)

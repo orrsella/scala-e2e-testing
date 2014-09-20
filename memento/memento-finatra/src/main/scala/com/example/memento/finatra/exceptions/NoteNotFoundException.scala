@@ -1,7 +1,8 @@
 package com.example.memento.finatra.exceptions
 
-import com.example.memento.core.exceptions.{ExceptionType, BaseRuntimeException}
-import com.example.memento.core.model.NoteId
+import java.util.UUID
 
-case class NoteNotFoundException(id: NoteId)
-  extends BaseRuntimeException(ExceptionType.NotFound, s"Note with id '${id.uuid}' not found")
+import com.example.memento.core.exceptions.{ExceptionType, BaseRuntimeException}
+
+case class NoteNotFoundException(id: UUID)
+  extends BaseRuntimeException(ExceptionType.NotFound, s"Note with id '$id' not found")

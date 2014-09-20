@@ -1,9 +1,11 @@
 package com.example.memento.core.dal
 
-import com.example.memento.core.model.{NewNote, Note, NoteId}
+import java.util.UUID
+
+import com.example.memento.core.model.{NewNote, Note}
 import scala.concurrent.Future
 
 trait NotesDao {
-  def add(newNote: NewNote): Future[NoteId]
-  def get(id: NoteId): Future[Option[Note]]
+  def add(newNote: NewNote): Future[UUID]
+  def get(id: UUID): Future[Option[Note]]
 }

@@ -1,16 +1,18 @@
 package com.example.memento.core.service
 
+import java.util.UUID
+
 import com.example.memento.core.dal.NotesDao
-import com.example.memento.core.model.{Note, NewNote, NoteId}
+import com.example.memento.core.model.{Note, NewNote}
 import com.example.memento.core.translation.Translator
 import scala.concurrent.{ExecutionContext, Future}
 
 class NotesService(notesDao: NotesDao, translator: Translator)(implicit context: ExecutionContext) {
 
-  def addNote(newNote: NewNote): Future[NoteId] = notesDao.add(newNote)
-  def getNote(id: NoteId): Future[Option[Note]] = notesDao.get(id)
+  def addNote(newNote: NewNote): Future[UUID] = notesDao.add(newNote)
+  def getNote(id: UUID): Future[Option[Note]] = notesDao.get(id)
 
-  def translateNote(id: NoteId, lang: String): Future[Option[Note]] = {
+  def translateNote(id: UUID, lang: String): Future[Option[Note]] = {
     for {
       note <- notesDao.get(id)
       translated <- translate(note, lang)

@@ -1,6 +1,8 @@
 package com.example.memento.core.dal
 
-import com.example.memento.core.model.{NewNote, Note, NoteId}
+import java.util.UUID
+
+import com.example.memento.core.model.{NewNote, Note}
 import org.specs2.mutable.Specification
 import org.specs2.specification.Scope
 
@@ -8,7 +10,7 @@ class InMemoryNotesDaoTest extends Specification with NoteMatchers {
 
   trait Context extends Scope {
     val dao = new InMemoryNotesDao()
-    val noteId = NoteId.random
+    val noteId = UUID.randomUUID
   }
 
   "In-memory notes dao" should {

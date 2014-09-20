@@ -1,3 +1,5 @@
 package com.example.memento.core.model
 
-case class Note(id: NoteId, text: String)
+import java.util.UUID
+
+case class Note(id: UUID, text: String)

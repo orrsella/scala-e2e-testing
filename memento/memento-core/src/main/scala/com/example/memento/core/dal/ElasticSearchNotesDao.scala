@@ -1,40 +1,37 @@
 package com.example.memento.core.dal
 
-import com.example.memento.core.model.{NewNote, Note, NoteId}
-import com.sksamuel.elastic4s.ElasticDsl.{get => esGet}
+import com.example.memento.core.exceptions.FailedIndexingException
+import com.example.memento.core.json.Json4sMapper
+import com.example.memento.core.model.{NewNote, Note}
+import java.util.UUID
 import org.elasticsearch.action.ActionListener
 import org.elasticsearch.action.get.GetResponse
+import org.elasticsearch.action.index.IndexResponse
 import org.elasticsearch.client.{Client, Requests}
-
 import scala.concurrent.{ExecutionContext, Future, Promise}
 
 class ElasticSearchNotesDao(client: Client)(implicit context: ExecutionContext) extends NotesDao {
 
   private val index = "notes"
   private val typ = "note"
-//  private val client2: Client = ???
+  private val mapper = new Json4sMapper
 
-//  def this(client: Client)(implicit context: ExecutionContext) = this(ElasticClient.fromClient(client))
+  def add(newNote: NewNote): Future[UUID] = {
+    val note = Note(UUID.randomUUID(), newNote.text)
+    val req = Requests.indexRequest(index).`type`(typ)/*.id(note.id.toString)*/.source(mapper.encode(note))
 
-  def add(newNote: NewNote): Future[NoteId] = {
-    val note = Note(NoteId.random, newNote.text)
-//    client.execute { index into "notes" -> "note" id note doc ObjectSource(newNote) } map { res =>
-////      res.getId
-//      newId
-//    }
-    ???
+    future[IndexResponse](client.index(req, _)) map { res =>
+      if (res.isCreated) note.id
+      else throw new FailedIndexingException(s"Index=$index")
+    }
   }
 
-  def get(id: NoteId): Future[Option[Note]] = {
-//    client.execute { esGet id id.uuid from "notes" -> "note" } map { res =>
-//      None
-//    }
-
-//    val req = client2.prepareGet("notes", "note", id.toString)
+  def get(id: UUID): Future[Option[Note]] = {
     val req = Requests.getRequest(index).`type`(typ).id(id.toString)
+
     future[GetResponse](client.get(req, _)) map { res =>
-//      res.
-      None
+      if (res.isExists) Some(mapper.decode[Note](res.getSourceAsString))
+      else None
     }
   }
 

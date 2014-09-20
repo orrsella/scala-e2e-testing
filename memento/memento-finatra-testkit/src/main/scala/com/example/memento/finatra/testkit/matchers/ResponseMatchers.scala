@@ -4,8 +4,8 @@ import com.example.memento.finatra.testkit.drivers.Response
 import org.specs2.matcher.{Matcher, Matchers}
 
 trait ResponseMatchers extends Matchers {
-  implicit def intToIntMatcher(t: Int): Matcher[Int] = beEqualTo(t)
-  implicit def stringToStringMatcher(t: String): Matcher[String] = beEqualTo(t)
+  private implicit def intToIntMatcher(t: Int): Matcher[Int] = beEqualTo(t)
+  private implicit def stringToStringMatcher(t: String): Matcher[String] = beEqualTo(t)
 
   def haveStatus(status: Matcher[Int]): Matcher[Response] = ((_: Response).status) ^^ status
   def haveBody(body: Matcher[String]): Matcher[Response] = ((_: Response).body) ^^ body
