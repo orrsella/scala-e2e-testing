@@ -1,7 +1,7 @@
 package com.example.memento.finatra.controllers
 
-import com.example.memento.finatra.testkit.drivers.FinatraMockRequestExecutor
-import com.example.memento.finatra.testkit.matchers.ResponseMatchers
+import com.example.memento.testkit.drivers.FinatraMockRequestExecutor
+import com.example.memento.testkit.matchers.ResponseMatchers
 import com.twitter.finatra.{Controller, FinatraServer}
 
 trait ControllerIntegrationTest extends FinatraMockRequestExecutor with ResponseMatchers {

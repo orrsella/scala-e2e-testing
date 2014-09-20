@@ -1,6 +1,7 @@
 package com.example.memento.finatra.controllers
 
-import com.example.memento.core.concurrent.Implicits._
+import com.example.memento.common.concurrent.Implicits
+import Implicits._
 import com.example.memento.core.dal.NotesDao
 import com.example.memento.core.exceptions.InvalidNoteIdException
 import com.example.memento.core.model.NewNote

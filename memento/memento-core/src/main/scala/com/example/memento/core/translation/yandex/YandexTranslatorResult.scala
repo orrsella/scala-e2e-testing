@@ -1,7 +1,7 @@
 package com.example.memento.core.translation.yandex
 
+import com.example.memento.common.http.HttpResponse
 import com.example.memento.core.exceptions.TranslationException
-import com.example.memento.core.http.HttpResponse
 import org.json4s.DefaultFormats
 import org.json4s.native.JsonMethods._
 

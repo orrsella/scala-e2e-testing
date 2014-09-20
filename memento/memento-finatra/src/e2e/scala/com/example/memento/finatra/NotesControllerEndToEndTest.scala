@@ -1,7 +1,7 @@
 package com.example.memento.finatra
 
-import com.example.memento.finatra.testkit.drivers.{FinagleHttpRequestExecutor, NotesControllerDriver}
-import com.example.memento.finatra.testkit.matchers.ResponseMatchers
+import com.example.memento.testkit.drivers.{FinagleHttpRequestExecutor, NotesControllerDriver}
+import com.example.memento.testkit.matchers.ResponseMatchers
 import org.specs2.mutable.Specification
 
 /**

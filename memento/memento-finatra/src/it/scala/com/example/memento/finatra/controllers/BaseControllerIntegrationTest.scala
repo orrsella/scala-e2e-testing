@@ -1,11 +1,17 @@
 package com.example.memento.finatra.controllers
 
-import com.example.memento.core.http.HttpMethod
-import com.example.memento.finatra.testkit.drivers.BaseControllerDriver
+import com.example.memento.common.http.HttpMethod
+import com.example.memento.testkit.drivers.BaseControllerDriver
+import com.example.memento.testkit.matchers.ResponseMatchers
 import com.twitter.finatra.Controller
 import org.specs2.mutable.Specification
 
-class BaseControllerIntegrationTest extends Specification with ControllerIntegrationTest with BaseControllerDriver {
+class BaseControllerIntegrationTest
+  extends Specification
+  with ControllerIntegrationTest
+  with BaseControllerDriver
+  with ResponseMatchers {
+
   sequential
 
   val controller: Controller = new BaseController {
