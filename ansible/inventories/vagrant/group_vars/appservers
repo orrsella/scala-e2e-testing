@@ -1,0 +1,6 @@
+---
+
+yandex_translate_host: 10.0.2.2
+yandex_translate_port: 9921
+yandex_translate_secure: false
+yandex_translate_api_key: API_KEY

@@ -16,7 +16,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "ansible/site.yml"
-    ansible.inventory_path = "ansible/inventories/vagrant"
+    ansible.inventory_path = "ansible/inventories/vagrant/inventory"
     # ansible.tags = "memento-finatra"
   end
 

@@ -31,10 +31,10 @@ defaults
 
 frontend http-in
     bind *:{{ port }}
-    default_backend webservers
+    default_backend appservers
 
-backend webservers
+backend appservers
     balance     {{ balance }}
-{% for host in groups['webservers'] %}
+{% for host in groups['appservers'] %}
     server      {{ host }} {{ hostvars[host]['ansible_' + iface].ipv4.address }}:{{ backend_port }}
 {% endfor %}

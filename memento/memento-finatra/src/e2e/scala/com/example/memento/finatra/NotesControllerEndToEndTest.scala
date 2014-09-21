@@ -18,7 +18,7 @@ class NotesControllerEndToEndTest
   private val server = new FakeYandexTranslateServer(port)
 
   step {
-//    server.start()
+    server.start()
   }
 
   "Notes controller" should {
@@ -34,6 +34,8 @@ class NotesControllerEndToEndTest
 
     "add a note and then get it translated" in {
       val addResp = anAddNoteRequest.withText("Good morning").execute()
+      addResp must beOk
+
       val translated = aTranslateNoteRequest.withId(addResp.noteId).withLang("es").execute()
       translated must beOk
       translated.text must_== "Buenos días"
@@ -51,6 +53,6 @@ class NotesControllerEndToEndTest
   }
 
   step {
-//    server.stop()
+    server.stop()
   }
 }

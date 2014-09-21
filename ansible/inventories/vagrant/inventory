@@ -1,0 +1,8 @@
+[loadbalancers]
+default
+
+[databases]
+default
+
+[appservers]
+default

@@ -7,7 +7,7 @@
     - common
     - monitoring
 
-- hosts: webservers
+- hosts: appservers
   user: deploy
   sudo: true
   roles:
