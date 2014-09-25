@@ -23,9 +23,9 @@ object Settings {
     packagerConfDirResources := Seq("application.conf", "logback.xml")
   )
 
-  lazy val root           = shared ++ Publish.noop ++ Dependencies.root
-  lazy val common         = shared ++ Publish.noop ++ Dependencies.common
-  lazy val testkit         = shared ++ Publish.noop ++ Dependencies.testkit
-  lazy val core           = shared ++ Publish.noop ++ Dependencies.core
-  lazy val finatra        = shared ++ Publish.settings ++ Dependencies.finatra ++ Packager.settings ++ Vagrant.settings ++ finatraSettings
+  lazy val root     = shared ++ Publish.noop     ++ Dependencies.root
+  lazy val common   = shared ++ Publish.noop     ++ Dependencies.common
+  lazy val testkit  = shared ++ Publish.noop     ++ Dependencies.testkit
+  lazy val core     = shared ++ Publish.noop     ++ Dependencies.core
+  lazy val finatra  = shared ++ Publish.settings ++ Dependencies.finatra ++ Packager.settings ++ Vagrant.settings ++ finatraSettings
 }
