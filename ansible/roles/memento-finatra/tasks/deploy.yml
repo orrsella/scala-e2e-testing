@@ -10,8 +10,8 @@
 - name: Install ivy
   apt: pkg=ivy state=present
 
-- name: Configure ivy-settings.xml
-  template: src=ivy/ivy-settings.xml.j2 dest={{ ivy_settings_xml }}
+- name: Configure ivysettings.xml
+  template: src=ivy/ivysettings.xml.j2 dest={{ ivy_settings_xml }}
 
 - name: Configure ivy.xml
   template: src=ivy/ivy.xml.j2 dest={{ ivy_xml }}
