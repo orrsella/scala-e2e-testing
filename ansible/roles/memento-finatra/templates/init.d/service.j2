@@ -2,20 +2,14 @@
 # chkconfig: 345 20 80
 # source: http://werxltd.com/wp/2012/01/05/simple-init-d-script-template/
 
-NAME={{ service_name }}
-APP_DIR={{ artifact_extracted_dir }}
+START_SCRIPT={{ start_script }}
 PID_FILE={{ pid_file }}
-APP_CONFIG={{ app_config }}
-LOG_CONFIG={{ log_config }}
-VERSION={{ version }}
-
-FQDN=`hostname -f`
 
 # ***********************************************
 # ***********************************************
 
-ARGS="-Dconfig.file=${APP_CONFIG} -Dlogback.configurationFile=${LOG_CONFIG}"
-DAEMON=$APP_DIR/bin/$NAME
+ARGS=""
+DAEMON=$START_SCRIPT
 
 # colors
 red='\e[0;31m'

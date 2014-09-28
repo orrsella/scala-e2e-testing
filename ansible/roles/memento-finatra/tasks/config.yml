@@ -1,7 +1,16 @@
 ---
 
-- name: Config init script
+- name: Create script dir
+  file: path={{ script_dir }} state=directory
+
+- name: Config start script
+  template: src=script/start.j2 dest="{{ start_script }}" mode=755
+
+- name: Config init.d script
   template: src=init.d/service.j2 dest=/etc/init.d/{{ service_name }} mode=755
+
+- name: Create conf dir
+  file: path={{ conf_dir }} state=directory
 
 - name: Config application.conf
   template: src=conf/application.conf.j2 dest={{ app_config }}

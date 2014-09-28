@@ -1,0 +1,13 @@
+#!/bin/bash
+
+MAIN_CLASS={{ main_class }}
+APP_CONFIG={{ app_config }}
+LOG_CONFIG={{ log_config }}
+BIN_DIR={{ bin_dir }}
+
+# ***********************************************
+# ***********************************************
+
+ARGS="-Dconfig.file=${APP_CONFIG} -Dlogback.configurationFile=${LOG_CONFIG}"
+
+exec java $ARGS -cp "$BIN_DIR/*" $MAIN_CLASS

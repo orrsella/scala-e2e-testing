@@ -5,14 +5,12 @@ object Dependencies {
 
   private val specs2        = "org.specs2"              %% "specs2"           % "2.4.2"
   private val mockito       = "org.mockito"             %  "mockito-all"      % "1.9.5"
-  // private val dispatch      = "net.databinder.dispatch" %% "dispatch-core"    % "0.11.0"
   private val json4s        = "org.json4s"              %% "json4s-native"    % "3.2.9"
   private val logback       = "ch.qos.logback"          %  "logback-classic"  % "1.1.1"
   private val elasticsearch = "org.elasticsearch"       %  "elasticsearch"    % "1.3.2"
   private val jodatime      = "joda-time"               %  "joda-time"        % "2.3"
   private val jodaconvert   = "org.joda"                %  "joda-convert"     % "1.6"
   private val config        = "com.typesafe"            %  "config"           % "1.2.0"
-  // private val commonsLang   = "org.apache.commons"      %  "commons-lang3"    % "3.3.1"
   private val commonsIo     = "commons-io"              %  "commons-io"       % "2.4"
   private val finatraDep    = "com.twitter"             %% "finatra"          % "1.5.3"
   private val finagleCore   = "com.twitter"             %% "finagle-core"     % "6.13.1"
@@ -25,11 +23,10 @@ object Dependencies {
 
   val resolvers = Seq(Keys.resolvers += "twttr" at "http://maven.twttr.com/")
 
-  val root            = deps()
-  val common          = deps(finagleCore, finagleHttp)
-  val testkit         = deps(finatraDep, specs2, mockito, json4s,  elasticsearch, commonsIo)
-  val core            = deps(elasticsearch, jodatime, jodaconvert, config, specs2Test, mockitoTest, finagleCore, finagleHttp, twitterUtil, logback, elastic4s, json4s)
-  val finatra         = deps(finatraDep, specs2Test, config, json4s, logback)
+  val common  = deps(finagleCore, finagleHttp)
+  val testkit = deps(finatraDep, specs2, mockito, json4s,  elasticsearch, commonsIo)
+  val core    = deps(elasticsearch, jodatime, jodaconvert, config, specs2Test, mockitoTest, finagleCore, finagleHttp, twitterUtil, logback, elastic4s, json4s)
+  val finatra = deps(finatraDep, specs2Test, config, json4s, logback)
 
   private def deps(modules: ModuleID*): Seq[Setting[_]] = Seq(libraryDependencies ++= modules)
 }

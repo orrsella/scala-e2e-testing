@@ -1,9 +1,10 @@
 ---
 
-# artifact
-artifactId: memento-finatra
-groupId: com.example
+organization: com.example
+artifact: memento-finatra
 version: 1.0.0-SNAPSHOT
+extension: jar
+main_class: com.example.memento.finatra.Main
 
 # ports
 port: 7771
@@ -11,46 +12,30 @@ admin_port: 9991
 proxy_port: 7770
 proxy_admin_port: 9990
 
-# files and dirs
-artifact_base_dir: "/opt/{{ artifactId }}"
-artifact_dir: "{{ artifact_base_dir }}/bin"
-artifact_file_name: "{{ artifactId }}-{{ version }}.zip"
-artifact_file: "{{ artifact_dir }}/{{ artifact_file_name }}"
-artifact: "{{ groupId }}:{{ artifactId }}:{{ version }}:zip"
-artifact_extracted_dir_name: "{{ artifactId }}-{{ version }}"
-artifact_extracted_dir: "{{ artifact_dir }}/{{ artifact_extracted_dir_name }}"
+# artifact
+base_dir: "/opt/{{ artifact }}"
+bin_dir: "{{ base_dir }}/bin"
+artifact_file: "{{ bin_dir }}/{{ organization }}.{{ artifact }}-{{ version }}.{{ extension }}"
 
-# service
-service_name: "{{ artifactId }}"
-conf_dir: "{{ artifact_extracted_dir }}/conf"
-pid_file: "{{ artifact_dir }}/pid"
+# ivy
+ivy_dir: "{{ base_dir }}/ivy"
+ivy_xml: "{{ ivy_dir }}/ivy.xml"
+ivy_settings_xml: "{{ ivy_dir }}/ivy-settings.xml"
+ivy_retrieve_pattern: "[organization].[artifact]-[revision].[ext]"
+
+# config
+service_name: "{{ artifact }}"
+script_dir: "{{ base_dir }}/script"
+start_script: "{{ script_dir }}/start"
+conf_dir: "{{ base_dir }}/conf"
+pid_file: "/run/{{ artifact }}.pid"
 app_config: "{{ conf_dir }}/application.conf"
 log_config: "{{ conf_dir }}/logback.xml"
 
 # nginx
-nginx_site_name: "{{ artifactId }}"
-nginx_base: "{{ artifact_base_dir }}/nginx"
+nginx_site_name: "{{ artifact }}"
+nginx_base: "{{ base_dir }}/nginx"
 nginx_www_dir: "{{ nginx_base }}/www"
 nginx_admin_user: admin
 nginx_admin_password: TODO
 nginx_admin_htpasswd_file: "{{ nginx_base }}/pwd"
-
-# maven
-maven_pom_xml: "~/.m2/pom.xml"
-maven_repositories: []
-#   - id: releases-repo
-#     name: releases-repo
-#     url: TODO
-#     releases: true
-#     snapshots: false
-
-#   - id: snapshots-repo
-#     name: snapshots-repo
-#     url: TODO
-#     releases: false
-#     snapshots: true
-
-maven_extensions: []
-#   - groupId: TODO
-#     artifactId: TODO
-#     version: TODO

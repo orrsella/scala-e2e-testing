@@ -1,6 +1,6 @@
 ---
 
-- include: deploy.yml tags=memento-finatra
-- include: config.yml tags=memento-finatra
-- include: nginx.yml  tags=memento-finatra
-- include: ufw.yml    tags=memento-finatra,ufw
+- include: deploy.yml   tags=memento-finatra
+- include: config.yml   tags=memento-finatra
+- include: nginx.yml    tags=memento-finatra
+- include: ufw.yml      tags=memento-finatra,ufw

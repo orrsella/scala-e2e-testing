@@ -2,29 +2,28 @@
 
 - name: Get checksum for existing artifact
   stat: path={{ artifact_file }}
-  register: existing
+  register: existing_checksum
 
-- include: download.yml
+- name: Create ivy dir
+  file: path={{ ivy_dir }} state=directory
 
-- name: Get checksum for downloaded (new) artifact
+- name: Install ivy
+  apt: pkg=ivy state=present
+
+- name: Configure ivy-settings.xml
+  template: src=ivy/ivy-settings.xml.j2 dest={{ ivy_settings_xml }}
+
+- name: Configure ivy.xml
+  template: src=ivy/ivy.xml.j2 dest={{ ivy_xml }}
+
+- name: Retrieve new version with ivy
+  command: "java -jar /usr/share/java/ivy.jar -retrieve {{ bin_dir }}/{{ ivy_retrieve_pattern }} -settings {{ ivy_settings_xml }} -ivy {{ ivy_xml }} -sync"
+
+- name: Get checksum for new artifact
   stat: path={{ artifact_file }}
-  register: new
+  register: new_checksum
 
 - name: Stop running service
   service: name={{ service_name }} state=stopped
   ignore_errors: yes
-  when: existing.stat.md5 is not defined or existing.stat.md5 != new.stat.md5
-
-- name: Cleanup artifact dir
-  shell: ls -1 {{ artifact_dir }}
-  register: files
-  when: existing.stat.md5 is not defined or existing.stat.md5 != new.stat.md5
-
-- name: Cleanup artifact dir
-  file: name="{{ artifact_dir }}/{{ item }}" state=absent
-  with_items: files.stdout_lines
-  when: item not in [ '{{ artifact_file_name }}' ] and (existing.stat.md5 is not defined or existing.stat.md5 != new.stat.md5)
-
-- name: Extract zip artifact
-  unarchive: copy=no src={{ artifact_file }} dest={{ artifact_dir }}
-  when: existing.stat.md5 is not defined or existing.stat.md5 != new.stat.md5
+  when: existing_checksum.stat.md5 is not defined or existing_checksum.stat.md5 != new_checksum.stat.md5

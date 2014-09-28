@@ -2,5 +2,4 @@
 
 dependencies:
   - role: java
-  - role: maven
   - role: nginx

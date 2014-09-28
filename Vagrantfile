@@ -9,7 +9,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network "forwarded_port", guest: 9990, host: 9989
   config.vm.network "forwarded_port", guest: 80, host: 8080
 
-  config.vm.synced_folder "~/.m2/repository", "/root/.m2/repository", create: true
+  config.vm.synced_folder "~/.ivy2/cache/", "/root/.ivy2/cache", create: true
+  config.vm.synced_folder "~/.ivy2/local/", "/root/.ivy2/local", create: true
 
   # config.vm.provision "shell", path: "scripts/bootstrap"
   # config.vm.provision "shell", path: "scripts/apply"

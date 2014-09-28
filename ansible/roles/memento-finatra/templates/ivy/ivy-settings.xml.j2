@@ -1,0 +1,49 @@
+<ivysettings>
+
+  <!-- ivysettings -->
+  <settings defaultResolver="default"/>
+
+  <!-- ivysettings-public -->
+  <resolvers>
+    <ibiblio name="public" m2compatible="true"/>
+  </resolvers>
+
+  <!-- ivysettings-shared -->
+  <property name="ivy.shared.default.root"             value="${ivy.default.ivy.user.dir}/shared" override="false"/>
+  <property name="ivy.shared.default.ivy.pattern"      value="[organisation]/[module]/[revision]/[type]s/[artifact].[ext]" override="false"/>
+  <property name="ivy.shared.default.artifact.pattern" value="[organisation]/[module]/[revision]/[type]s/[artifact].[ext]" override="false"/>
+  <resolvers>
+    <filesystem name="shared">
+      <ivy pattern="${ivy.shared.default.root}/${ivy.shared.default.ivy.pattern}" />
+      <artifact pattern="${ivy.shared.default.root}/${ivy.shared.default.artifact.pattern}" />
+    </filesystem>
+  </resolvers>
+
+  <!-- ivysettings-local -->
+  <property name="ivy.local.default.root"             value="${ivy.default.ivy.user.dir}/local" override="false"/>
+  <property name="ivy.local.default.ivy.pattern"      value="[organisation]/[module]/[revision]/[type]s/[artifact].[ext]" override="false"/>
+  <property name="ivy.local.default.artifact.pattern" value="[organisation]/[module]/[revision]/[type]s/[artifact].[ext]" override="false"/>
+  <resolvers>
+    <filesystem name="local" checkmodified="true" changingMatcher="regexp" changingPattern=".*-SNAPSHOT.*">
+      <ivy pattern="${ivy.local.default.root}/${ivy.local.default.ivy.pattern}" />
+      <artifact pattern="${ivy.local.default.root}/${ivy.local.default.artifact.pattern}" />
+    </filesystem>
+  </resolvers>
+
+  <!-- ivysettings-main-chain -->
+  <resolvers>
+    <chain name="main" dual="true">
+      <resolver ref="shared"/>
+      <resolver ref="public"/>
+    </chain>
+  </resolvers>
+
+  <!-- ivysettings-default-chain -->
+  <resolvers>
+    <chain name="default" returnFirst="true" checkmodified="true">
+      <resolver ref="local"/>
+      <resolver ref="main"/>
+    </chain>
+  </resolvers>
+
+</ivysettings>
