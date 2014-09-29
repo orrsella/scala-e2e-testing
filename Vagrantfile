@@ -12,9 +12,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder "~/.ivy2/cache/", "/root/.ivy2/cache", create: true
   config.vm.synced_folder "~/.ivy2/local/", "/root/.ivy2/local", create: true
 
-  # config.vm.provision "shell", path: "scripts/bootstrap"
-  # config.vm.provision "shell", path: "scripts/apply"
-
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "ansible/site.yml"
     ansible.inventory_path = "ansible/inventories/vagrant/inventory"
