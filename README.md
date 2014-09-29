@@ -1,6 +1,6 @@
 # scala-e2e-testing
 
-This is a sample project that shows how to write truly end-to-end tests in Scala. It accompanies a talk I'm giving at [Scalapeno](http://www.scalapeno.org.il/) 2014 titled [*"True End-to-End Testing in Scala"*](http://www.scalapeno.org.il/#!orr-sella/czmu).
+This is a sample project that shows how to write truly end-to-end tests in Scala. It accompanies a talk I gave at [Scalapeno](http://www.scalapeno.org.il/) 2014 titled [*"True End-to-End Testing in Scala"*](http://orrsella.com/2014/09/24/true-end-to-end-testing-in-scala-scalapeno-2014-talk/).
 
 ## Project
 
@@ -61,5 +61,5 @@ $ sbt test-all
 If you want to test only the ansible code, run:
 
 ```bash
-$ ansible-playbook -i ansible/inventories/vagrant site.yml
+$ ansible-playbook -i ansible/inventories/vagrant ansible/site.yml
 ```
