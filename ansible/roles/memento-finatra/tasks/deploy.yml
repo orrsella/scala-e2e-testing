@@ -4,20 +4,17 @@
   stat: path={{ artifact_file }}
   register: existing_checksum
 
-- name: Create ivy dir
-  file: path={{ ivy_dir }} state=directory
-
-- name: Install ivy
-  apt: pkg=ivy state=present
-
-- name: Configure ivysettings.xml
-  template: src=ivy/ivysettings.xml.j2 dest={{ ivy_settings_xml }}
-
 - name: Configure ivy.xml
   template: src=ivy/ivy.xml.j2 dest={{ ivy_xml }}
+  tags: ivy
 
 - name: Retrieve new version with ivy
-  command: "java -jar /usr/share/java/ivy.jar -retrieve {{ bin_dir }}/{{ ivy_retrieve_pattern }} -settings {{ ivy_settings_xml }} -ivy {{ ivy_xml }} -sync"
+  command: " {{ ivy_command }} -retrieve {{ bin_dir }}/{{ ivy_retrieve_pattern }} -ivy {{ ivy_xml }}"
+  tags: ivy
+
+- name: Delete ivy.xml
+  file: path={{ ivy_xml }} state=absent
+  tags: ivy
 
 - name: Get checksum for new artifact
   stat: path={{ artifact_file }}

@@ -30,6 +30,20 @@
     </filesystem>
   </resolvers>
 
+  <!-- aws s3, source: https://github.com/spring-projects/aws-ant/tree/master/spring-build/lib/ivy -->
+  <property name="ivy.s3repo.default.ivy.pattern"       value="[organisation]/[module]/[revision]/[type]s/[artifact].[ext]" override="false"/>
+  <property name="ivy.s3repo.default.artifact.pattern"  value="[organisation]/[module]/[revision]/[type]s/[artifact].[ext]" override="false"/>
+  <typedef name="s3" classname="org.springframework.aws.ivy.S3Resolver"/>
+  <macrodef name="s3repo">
+    <attribute name="bucket"/>
+    <attribute name="accessKey"/>
+    <attribute name="secretKey"/>
+    <s3 accessKey="@{accessKey}" secretKey="@{secretKey}">
+      <ivy pattern="s3://@{bucket}/${ivy.s3repo.default.ivy.pattern}"/>
+      <artifact pattern="s3://@{bucket}/${ivy.s3repo.default.artifact.pattern}"/>
+    </s3>
+  </macrodef>
+
   <!-- ivysettings-main-chain -->
   <resolvers>
     <chain name="main" dual="true">
@@ -43,6 +57,7 @@
     <chain name="default" returnFirst="true" checkmodified="true">
       <resolver ref="local"/>
       <resolver ref="main"/>
+      <s3repo name="s3repo" bucket="{{ s3_bucket }}" accessKey="{{ s3_access_key }}" secretKey="{{ s3_secret_key }}"/>
     </chain>
   </resolvers>
 

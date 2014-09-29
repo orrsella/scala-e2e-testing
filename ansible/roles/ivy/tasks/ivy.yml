@@ -1,0 +1,11 @@
+---
+
+- name: Create ivy dir
+  file: path={{ ivy_dir }} state=directory
+
+# source: https://github.com/spring-projects/aws-ant/tree/master/spring-build/lib/ivy
+- name: Copy ivy binaries
+  copy: src=ivy/ dest={{ ivy_dir }}
+
+- name: Configure ivysettings.xml
+  template: src=ivysettings.xml.j2 dest={{ ivy_settings_xml }}

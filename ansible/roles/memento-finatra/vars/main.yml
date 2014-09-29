@@ -18,10 +18,7 @@ bin_dir: "{{ base_dir }}/bin"
 artifact_file: "{{ bin_dir }}/{{ organization }}.{{ artifact }}-{{ version }}.{{ extension }}"
 
 # ivy
-ivy_dir: "{{ base_dir }}/ivy"
-ivy_xml: "{{ ivy_dir }}/ivy.xml"
-ivy_settings_xml: "{{ ivy_dir }}/ivysettings.xml"
-ivy_retrieve_pattern: "[organization].[artifact]-[revision].[ext]"
+ivy_xml: "{{ base_dir }}/ivy.xml"
 
 # config
 service_name: "{{ artifact }}"
