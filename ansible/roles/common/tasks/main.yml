@@ -4,4 +4,3 @@
 - include: tools.yml    tags=common,tools
 - include: security.yml tags=common,security
 - include: ntp.yml      tags=common,ntp
-- include: ufw.yml      tags=common,ufw

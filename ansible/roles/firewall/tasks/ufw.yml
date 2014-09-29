@@ -8,5 +8,4 @@
 
 - name: Allow specific ports from all
   ufw: rule=allow port={{ item }} proto=tcp
-  with_items:
-    - 22
+  with_items: allowed_ports

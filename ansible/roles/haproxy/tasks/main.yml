@@ -1,4 +1,3 @@
 ---
 
 - include: haproxy.yml  tags=haproxy
-- include: ufw.yml      tags=haproxy,ufw

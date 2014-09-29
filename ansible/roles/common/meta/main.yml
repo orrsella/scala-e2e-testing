@@ -1,0 +1,4 @@
+---
+
+dependencies:
+  - { role: firewall, allowed_ports: 22 }
