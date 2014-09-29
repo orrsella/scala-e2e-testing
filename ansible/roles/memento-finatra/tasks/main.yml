@@ -1,5 +1,6 @@
 ---
 
-- include: deploy.yml   tags=memento-finatra
+- include: deploy.yml   tags=memento-finatra,ivy
 - include: config.yml   tags=memento-finatra
-- include: nginx.yml    tags=memento-finatra
+- include: service.yml  tags=memento-finatra
+- include: proxy.yml    tags=memento-finatra,nginx

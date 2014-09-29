@@ -1,0 +1,13 @@
+---
+
+- name: Create script dir
+  file: path={{ script_dir }} state=directory
+
+- name: Create start script
+  template: src=script/start.j2 dest="{{ start_script }}" mode=755
+
+- name: Create init.d script
+  template: src=init.d/service.j2 dest=/etc/init.d/{{ service_name }} mode=755
+
+- name: Ensure service is enabled and running
+  service: name={{ service_name }} state=started enabled=yes

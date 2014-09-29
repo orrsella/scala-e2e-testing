@@ -17,9 +17,6 @@ base_dir: "/opt/{{ artifact }}"
 bin_dir: "{{ base_dir }}/bin"
 artifact_file: "{{ bin_dir }}/{{ organization }}.{{ artifact }}-{{ version }}.{{ extension }}"
 
-# ivy
-ivy_xml: "{{ base_dir }}/ivy.xml"
-
 # config
 service_name: "{{ artifact }}"
 script_dir: "{{ base_dir }}/script"

@@ -2,5 +2,4 @@
 
 - name: Retrieve new version with ivy
   retrieve: org={{ organization }} name={{ artifact }} rev={{ version }} path={{ bin_dir }}
-  tags: ivy
   notify: restart service
