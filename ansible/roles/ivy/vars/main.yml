@@ -2,9 +2,6 @@
 
 ivy_dir: /opt/ivy
 ivy_settings_xml: "{{ ivy_dir }}/ivysettings.xml"
-ivy_retrieve_pattern: "[organization].[artifact]-[revision].[ext]"
-ivy_command: "java -cp '{{ ivy_dir }}/*' org.apache.ivy.Main -settings {{ ivy_settings_xml }} -sync"
-             # add to command: -retrieve {{ bin_dir }}/{{ ivy_retrieve_pattern }} -ivy {{ ivy_xml }}
 
 s3_bucket: TODO
 s3_access_key: TODO

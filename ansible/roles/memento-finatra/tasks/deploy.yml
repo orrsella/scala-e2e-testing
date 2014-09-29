@@ -1,26 +1,6 @@
 ---
 
-- name: Get checksum for existing artifact
-  stat: path={{ artifact_file }}
-  register: existing_checksum
-
-- name: Configure ivy.xml
-  template: src=ivy/ivy.xml.j2 dest={{ ivy_xml }}
-  tags: ivy
-
 - name: Retrieve new version with ivy
-  command: " {{ ivy_command }} -retrieve {{ bin_dir }}/{{ ivy_retrieve_pattern }} -ivy {{ ivy_xml }}"
+  retrieve: org={{ organization }} name={{ artifact }} rev={{ version }} path={{ bin_dir }}
   tags: ivy
-
-- name: Delete ivy.xml
-  file: path={{ ivy_xml }} state=absent
-  tags: ivy
-
-- name: Get checksum for new artifact
-  stat: path={{ artifact_file }}
-  register: new_checksum
-
-- name: Stop running service
-  service: name={{ service_name }} state=stopped
-  ignore_errors: yes
-  when: existing_checksum.stat.md5 is not defined or existing_checksum.stat.md5 != new_checksum.stat.md5
+  notify: restart service

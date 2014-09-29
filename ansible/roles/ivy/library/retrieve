@@ -1,0 +1,64 @@
+#!/bin/bash
+# source: http://jpmens.net/2012/07/05/shell-scripts-as-ansible-modules/
+set -e
+
+# read arguments
+source ${1}   # Very, *very*, dangerous!
+
+# create temp file
+ivy_xml=`mktemp /tmp/ivy.xml.XXXXXXXXXX`
+
+# delete temp file on exit
+trap "rm -f $ivy_xml" 0 1 2 15
+
+# check that arguments exist
+if [ -z "$org" ]; then
+  echo 'failed=True msg="Module needs `org` argument"'
+  exit 0;
+fi
+
+if [ -z "$name" ]; then
+  echo 'failed=True msg="Module needs `name` argument"'
+  exit 0;
+fi
+
+if [ -z "$rev" ]; then
+  echo 'failed=True msg="Module needs `rev` argument"'
+  exit 0;
+fi
+
+if [ -z "$path" ]; then
+  echo 'failed=True msg="Module needs `path` argument"'
+  exit 0;
+fi
+
+# write to temp file
+cat > ${ivy_xml} << EOF
+<ivy-module version="1.0">
+  <info organisation="org" module="standalone" revision="working" />
+  <configurations>
+    <conf name="runtime"/>
+  </configurations>
+  <dependencies>
+    <dependency org="$org" name="$name" rev="$rev" transitive="true" conf="runtime" changing="true"/>
+  </dependencies>
+</ivy-module>
+EOF
+
+# calc nold checksum of dir
+oldhash=`find ${path} -type f -exec md5sum {} \; | sort -k 34 | md5sum`
+
+# run ivy
+res=`java -cp '/opt/ivy/*' org.apache.ivy.Main -settings /opt/ivy/ivysettings.xml -sync -retrieve $path/[organization].[artifact]-[revision].[ext] -ivy ${ivy_xml}`
+code=$?
+
+# calc new checksum of dir
+newhash=`find ${path} -type f -exec md5sum {} \; | sort -k 34 | md5sum`
+
+if [ "$oldhash" != "$newhash" ]; then
+  echo "changed=True msg=OK"
+  exit $code
+fi
+
+echo "changed=False"
+exit $code

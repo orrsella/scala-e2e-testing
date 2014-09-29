@@ -13,7 +13,7 @@
   <property name="ivy.shared.default.ivy.pattern"      value="[organisation]/[module]/[revision]/[type]s/[artifact].[ext]" override="false"/>
   <property name="ivy.shared.default.artifact.pattern" value="[organisation]/[module]/[revision]/[type]s/[artifact].[ext]" override="false"/>
   <resolvers>
-    <filesystem name="shared">
+    <filesystem name="shared" checkmodified="true" changingMatcher="regexp" changingPattern=".*-SNAPSHOT.*">
       <ivy pattern="${ivy.shared.default.root}/${ivy.shared.default.ivy.pattern}" />
       <artifact pattern="${ivy.shared.default.root}/${ivy.shared.default.artifact.pattern}" />
     </filesystem>
