@@ -10,7 +10,7 @@ object Vagrant {
   private lazy val vagrant = settingKey[Vagrant]("vagrant")
 
   lazy val settings = Seq(
-    test in EndToEndTest <<= (test in EndToEndTest).dependsOn(publishLocal),
+    test in EndToEndTest <<= ((test in EndToEndTest).dependsOn(ansibleSetVersion in EndToEndTest)).dependsOn(publishLocal),
     vagrant in EndToEndTest := new Vagrant(vagrantFile.value),
     testOptions in EndToEndTest += Tests.Setup(()   => if ((definedTests in EndToEndTest).value.nonEmpty) (vagrant in EndToEndTest).value.setup()),
     testOptions in EndToEndTest += Tests.Cleanup(() => if ((definedTests in EndToEndTest).value.nonEmpty) (vagrant in EndToEndTest).value.cleanup())

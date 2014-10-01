@@ -1,6 +1,6 @@
 ---
-
 yandex_translate_host: translate.yandex.net
 yandex_translate_port: 443
 yandex_translate_secure: true
 yandex_translate_api_key: TODO
+memento_finatra_version: 1.0.0

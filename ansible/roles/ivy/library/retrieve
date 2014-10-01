@@ -1,6 +1,7 @@
 #!/bin/bash
 # source: http://jpmens.net/2012/07/05/shell-scripts-as-ansible-modules/
-set -e
+
+# set -e
 
 # read arguments
 source ${1}   # Very, *very*, dangerous!
@@ -35,7 +36,7 @@ fi
 # write to temp file
 cat > ${ivy_xml} << EOF
 <ivy-module version="1.0">
-  <info organisation="org" module="standalone" revision="working" />
+  <info organisation="org" module="standalone" revision="working"/>
   <configurations>
     <conf name="runtime"/>
   </configurations>
@@ -54,6 +55,11 @@ code=$?
 
 # calc new checksum of dir
 newhash=`find ${path} -type f -exec md5sum {} \; | sort -k 34 | md5sum`
+
+if [ $code -ne 0 ]; then
+  echo "failed=True msg=$res"
+  exit $code
+fi
 
 if [ "$oldhash" != "$newhash" ]; then
   echo "changed=True msg=OK"

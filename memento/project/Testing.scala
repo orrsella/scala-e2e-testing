@@ -29,6 +29,9 @@ object Testing {
   )
 
   lazy val settings = testSettings ++ itSettings ++ e2eSettings ++ Seq(
-    testAll <<= (test in EndToEndTest).dependsOn((test in IntegrationTest).dependsOn(test in Test))
+    testAll := (),
+    testAll <<= testAll.dependsOn(test in EndToEndTest),
+    testAll <<= testAll.dependsOn(test in IntegrationTest),
+    testAll <<= testAll.dependsOn(test in Test)
   )
 }

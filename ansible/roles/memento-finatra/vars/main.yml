@@ -2,7 +2,7 @@
 
 organization: com.example
 artifact: memento-finatra
-version: 1.0.0-SNAPSHOT
+version: "{{ memento_finatra_version }}"
 extension: jar
 main_class: com.example.memento.finatra.Main
 
