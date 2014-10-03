@@ -1,6 +1,6 @@
 package com.example.memento.core.translation.yandex
 
-import com.example.memento.common.http.finagle.FinagleHttpClient
+import com.example.memento.core.http.finagle.FinagleHttpClient
 import com.example.memento.testkit.servers.http.FakeYandexTranslateServer
 import org.specs2.mutable.Specification
 

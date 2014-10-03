@@ -1,4 +1,4 @@
-package com.example.memento.common.http
+package com.example.memento.core.http
 
 import scala.concurrent.{ExecutionContext, Future}
 

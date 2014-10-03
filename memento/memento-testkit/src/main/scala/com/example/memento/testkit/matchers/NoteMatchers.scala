@@ -1,4 +1,4 @@
-package com.example.memento.core.dal
+package com.example.memento.testkit.matchers
 
 import com.example.memento.core.model.Note
 import org.specs2.matcher.{Matcher, Matchers}

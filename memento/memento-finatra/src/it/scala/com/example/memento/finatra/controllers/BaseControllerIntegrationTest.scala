@@ -1,6 +1,6 @@
 package com.example.memento.finatra.controllers
 
-import com.example.memento.common.http.HttpMethod
+import com.example.memento.core.http.HttpMethod
 import com.example.memento.testkit.drivers.BaseControllerDriver
 import com.example.memento.testkit.matchers.ResponseMatchers
 import com.twitter.finatra.Controller

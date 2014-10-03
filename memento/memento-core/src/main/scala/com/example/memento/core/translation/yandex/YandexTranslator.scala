@@ -1,7 +1,7 @@
 package com.example.memento.core.translation.yandex
 
-import com.example.memento.common.http.{HttpClient, HttpMethod, HttpRequest}
 import com.example.memento.core.exceptions.TranslationException
+import com.example.memento.core.http.{HttpClient, HttpMethod, HttpRequest}
 import com.example.memento.core.translation.Translator
 import scala.concurrent.{ExecutionContext, Future}
 

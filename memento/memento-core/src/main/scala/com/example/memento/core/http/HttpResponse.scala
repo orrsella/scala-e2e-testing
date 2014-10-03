@@ -1,4 +1,4 @@
-package com.example.memento.common.http
+package com.example.memento.core.http
 
 case class HttpResponse(
     status: Int,

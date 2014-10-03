@@ -2,7 +2,7 @@ package com.example.memento.finatra
 
 import com.example.memento.core.Logging
 import com.example.memento.core.dal.InMemoryNotesDao
-import com.example.memento.common.http.finagle.FinagleHttpClient
+import com.example.memento.core.http.finagle.FinagleHttpClient
 import com.example.memento.core.translation.yandex.YandexTranslator
 import com.example.memento.finatra.controllers.NotesController
 import com.twitter.finatra.FinatraServer

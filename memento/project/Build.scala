@@ -7,8 +7,8 @@ object TheBuild extends Build {
   // Root Project
   // -------------------------------------------------------------------------------------------------------------------
 
-  lazy val root = Project("root", file("."))
-    .aggregate(common, testkit, core, finatra)
+  lazy val root = Project("memento-root", file("."))
+    .aggregate(testkit, core, finatra)
     .configs(Configs.all: _*)
     .settings(Settings.root: _*)
 
@@ -16,22 +16,23 @@ object TheBuild extends Build {
   // Modules
   // -------------------------------------------------------------------------------------------------------------------
 
-  lazy val common: Project= Project("memento-common", file("memento-common"))
-    .configs(Configs.all: _*)
-    .settings(Settings.common: _*)
+  lazy val testkit: Project = Project("memento-testkit", file("memento-testkit"))
+    // .settings(unmanagedClasspath in Compile <+= (packageBin in (LocalProject("memento-core"), Compile))) // to avoid cyclic refence
+    // .settings(unmanagedClasspath in Compile <++= (fullClasspath in (LocalProject("memento-core"), Compile))) // to avoid cyclic refence
+    // .dependsOn(LocalProject("memento-core") % "compile->compile")
+    // .dependsOn(LocalProject("memento-core") % "compile")
+    .settings(unmanagedSourceDirectories in Compile <++= (unmanagedSourceDirectories in (LocalProject("memento-core"), Compile))) // to avoid cyclic refence
 
-  lazy val testkit: Project= Project("memento-testkit", file("memento-testkit"))
-    .dependsOn(common)
     .configs(Configs.all: _*)
     .settings(Settings.testkit: _*)
 
-  lazy val core: Project= Project("memento-core", file("memento-core"))
-    .dependsOn(common, testkit % "test,it,e2e->compile")
+  lazy val core: Project = Project("memento-core", file("memento-core"))
+    .dependsOn(testkit % "test,it,e2e")
     .configs(Configs.all: _*)
     .settings(Settings.core: _*)
 
   lazy val finatra = Project("memento-finatra", file("memento-finatra"))
-    .dependsOn(common, core % "*", testkit % "test,it,e2e->compile")
+    .dependsOn(core, testkit % "test,it,e2e")
     .configs(Configs.all: _*)
     .settings(Settings.finatra: _*)
 }

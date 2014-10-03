@@ -1,8 +1,8 @@
 package com.example.memento.core.dal
 
-import java.util.UUID
-
 import com.example.memento.core.model.{NewNote, Note}
+import com.example.memento.testkit.matchers.NoteMatchers
+import java.util.UUID
 import org.specs2.mutable.Specification
 import org.specs2.specification.Scope
 

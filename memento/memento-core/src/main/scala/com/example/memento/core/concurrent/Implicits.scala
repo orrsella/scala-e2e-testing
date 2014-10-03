@@ -1,4 +1,4 @@
-package com.example.memento.common.concurrent
+package com.example.memento.core.concurrent
 
 import com.twitter.util.{Return, Throw, Future => TwitterFuture, Promise => TwitterPromise}
 import scala.concurrent.{ExecutionContext, Future, Promise}

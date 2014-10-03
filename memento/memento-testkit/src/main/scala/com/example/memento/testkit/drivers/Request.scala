@@ -1,6 +1,6 @@
 package com.example.memento.testkit.drivers
 
-import com.example.memento.common.http.HttpMethod
+import com.example.memento.core.http.HttpMethod
 
 trait Request[R] {
   def method: HttpMethod

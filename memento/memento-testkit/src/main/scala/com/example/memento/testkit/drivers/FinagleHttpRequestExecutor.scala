@@ -1,7 +1,7 @@
 package com.example.memento.testkit.drivers
 
-import com.example.memento.common.http.HttpRequest
-import com.example.memento.common.http.finagle.FinagleHttpClient
+import com.example.memento.core.http.HttpRequest
+import com.example.memento.core.http.finagle.FinagleHttpClient
 import scala.concurrent.duration._
 import scala.concurrent.{Await, ExecutionContext}
 import scala.language.postfixOps

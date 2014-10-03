@@ -32,7 +32,6 @@ object Settings {
   )
 
   lazy val root     = shared ++ Publish.noop
-  lazy val common   = shared ++ Publish.settings ++ Dependencies.common
   lazy val testkit  = shared ++ Publish.noop     ++ Dependencies.testkit
   lazy val core     = shared ++ Publish.settings ++ Dependencies.core
   lazy val finatra  = shared ++ Publish.settings ++ Dependencies.finatra ++ finatraSettings

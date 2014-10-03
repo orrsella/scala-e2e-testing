@@ -1,7 +1,7 @@
-package com.example.memento.common.http.finagle
+package com.example.memento.core.http.finagle
 
-import com.example.memento.common.concurrent.Implicits._
-import com.example.memento.common.http.{HttpClient, HttpRequest, HttpResponse}
+import com.example.memento.core.concurrent.Implicits._
+import com.example.memento.core.http.{HttpClient, HttpRequest, HttpResponse}
 import com.twitter.finagle.builder.ClientBuilder
 import com.twitter.finagle.http.Http
 import com.twitter.finagle.Service

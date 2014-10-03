@@ -1,6 +1,6 @@
 package com.example.memento.testkit.drivers
 
-import com.example.memento.common.http.HttpMethod
+import com.example.memento.core.http.HttpMethod
 import com.twitter.finatra.FinatraServer
 import com.twitter.finatra.test.SpecHelper
 
