@@ -10,8 +10,6 @@ import org.specs2.specification.Scope
 
 class ElasticSearchNotesDaoIntegrationTest extends Specification with FutureTestingSupport with NoteMatchers {
 
-  import scala.concurrent.duration._
-  override val timeout = 2000.milli
   val server = new ElasticSearchServer
   val index = "notes"
 
