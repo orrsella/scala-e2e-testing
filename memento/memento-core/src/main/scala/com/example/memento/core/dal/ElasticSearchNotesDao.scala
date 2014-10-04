@@ -2,7 +2,7 @@ package com.example.memento.core.dal
 
 import com.example.memento.core.exceptions.FailedIndexingException
 import com.example.memento.core.json.Json4sMapper
-import com.example.memento.core.model.{NewNote, Note}
+import com.example.memento.core.model.Note
 import java.util.UUID
 import org.elasticsearch.action.ActionListener
 import org.elasticsearch.action.get.GetResponse
@@ -16,8 +16,8 @@ class ElasticSearchNotesDao(client: Client)(implicit context: ExecutionContext) 
   private val typ = "note"
   private val mapper = new Json4sMapper
 
-  def add(newNote: NewNote): Future[UUID] = {
-    val note = Note(UUID.randomUUID(), newNote.text)
+  def add(text: String): Future[UUID] = {
+    val note = Note(UUID.randomUUID(), text)
     val req = Requests.indexRequest(index).`type`(typ).id(note.id.toString).source(mapper.encode(note))
 
     future[IndexResponse](client.index(req, _)) map { res =>

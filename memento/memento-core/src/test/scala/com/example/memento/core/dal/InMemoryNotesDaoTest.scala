@@ -1,31 +1,29 @@
 package com.example.memento.core.dal
 
-import com.example.memento.core.model.{NewNote, Note}
+import com.example.memento.core.model.Note
+import com.example.memento.testkit.FutureTestingSupport
 import com.example.memento.testkit.matchers.NoteMatchers
 import java.util.UUID
 import org.specs2.mutable.Specification
 import org.specs2.specification.Scope
 
-class InMemoryNotesDaoTest extends Specification with NoteMatchers {
+class InMemoryNotesDaoTest extends Specification with FutureTestingSupport with NoteMatchers {
 
   trait Context extends Scope {
     val dao = new InMemoryNotesDao()
-    val noteId = UUID.randomUUID
   }
 
   "In-memory notes dao" should {
-    "add a note and then return it" in new Context {
-      val newNote = NewNote("Hello world")
-      dao.add(newNote) map { id =>
-        val note = dao.get(id)
-        note must beSome[Note].await
-        note must haveText("Hello world").await
-      }
+    "return None for a non-existing note" in new Context {
+      val note: Option[Note] = dao.get(UUID.randomUUID)
+      note must beNone
     }
 
-    "return None for non-existing note" in new Context {
-      val note = dao.get(noteId)
-      note must beNone.await
+    "add and return a note" in new Context {
+      val id: UUID = dao.add("Hello world")
+      val note: Option[Note] = dao.get(id)
+      note must beSome[Note]
+      note must haveText("Hello world")
     }
   }
 }

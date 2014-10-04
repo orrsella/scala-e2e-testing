@@ -3,7 +3,6 @@ package com.example.memento.finatra.controllers
 import com.example.memento.core.concurrent.Implicits._
 import com.example.memento.core.dal.NotesDao
 import com.example.memento.core.exceptions.InvalidNoteIdException
-import com.example.memento.core.model.NewNote
 import com.example.memento.core.service.NotesService
 import com.example.memento.core.translation.Translator
 import com.example.memento.finatra.exceptions.NoteNotFoundException
@@ -20,9 +19,8 @@ class NotesController(notesDao: NotesDao, translator: Translator) extends BaseCo
 
   post("/notes") { req =>
     val request = req.bodyAs[AddNoteRequest]
-    val newNote = NewNote(request.text)
 
-    service.addNote(newNote) map { id =>
+    service.addNote(request.text) map { id =>
       render.json(new AddNoteResponse(id))
     }
   }
