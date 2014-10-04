@@ -46,7 +46,7 @@
 
   <!-- ivysettings-main-chain -->
   <resolvers>
-    <chain name="main" dual="true">
+    <chain name="main" dual="true" checkmodified="true" changingMatcher="regexp" changingPattern=".*-SNAPSHOT.*">
       <resolver ref="shared"/>
       <resolver ref="public"/>
     </chain>
@@ -54,7 +54,7 @@
 
   <!-- ivysettings-default-chain -->
   <resolvers>
-    <chain name="default" returnFirst="true" checkmodified="true">
+    <chain name="default" returnFirst="true" checkmodified="true" changingMatcher="regexp" changingPattern=".*-SNAPSHOT.*">
       <resolver ref="local"/>
       <resolver ref="main"/>
       <s3repo name="s3repo" bucket="{{ s3_bucket }}" accessKey="{{ s3_access_key }}" secretKey="{{ s3_secret_key }}"/>
