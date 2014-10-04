@@ -2,12 +2,12 @@
 //
 //import com.example.memento.core.dal.InMemoryNotesDao
 //import com.example.memento.core.translation.InMemoryTranslator
-//import com.example.memento.finatra.testkit.drivers.NotesControllerDriver
+//import com.example.memento.testkit.drivers.NotesControllerDriver
 //import org.specs2.mutable.Specification
 //
 ///**
-// * Acceptance Test for NotesController
-// */
+//* Acceptance Test for NotesController
+//*/
 //class NotesControllerIntegrationTest extends Specification with ControllerIntegrationTest with NotesControllerDriver {
 //  sequential
 //
