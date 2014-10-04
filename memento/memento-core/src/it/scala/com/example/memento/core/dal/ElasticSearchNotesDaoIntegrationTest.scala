@@ -11,7 +11,6 @@ import org.specs2.specification.Scope
 class ElasticSearchNotesDaoIntegrationTest extends Specification with FutureTestingSupport with NoteMatchers {
 
   val server = new ElasticSearchServer
-  val index = "notes"
 
   trait Context extends Scope {
     val dao = new ElasticSearchNotesDao(server.client)
@@ -19,9 +18,7 @@ class ElasticSearchNotesDaoIntegrationTest extends Specification with FutureTest
 
   step {
     server.start()
-    server.client.admin.indices.prepareCreate(index).execute.actionGet()
-    server.client.admin.cluster.prepareHealth(index).setWaitForActiveShards(1).execute.actionGet()
-//    server.client.admin.indices.preparePutMapping("notes").setType("note").setSource("{\"note\":{}}").execute.actionGet()
+    server.createAndWaitForIndex("notes")
   }
 
   "ElasticSearch notes dao" should {
