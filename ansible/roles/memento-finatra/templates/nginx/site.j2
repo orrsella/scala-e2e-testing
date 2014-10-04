@@ -17,11 +17,11 @@ server {
         proxy_next_upstream     error timeout invalid_header http_500 http_502 http_503 http_504;
     }
 
-    error_page 500 502 503 504 /50x.html;
+    # error_page 500 502 503 504 /50x.html;
 
-    location = /50x.html {
-        root {{ nginx_www_dir }};
-    }
+    # location = /50x.html {
+    #     root {{ nginx_www_dir }};
+    # }
 }
 
 server {
