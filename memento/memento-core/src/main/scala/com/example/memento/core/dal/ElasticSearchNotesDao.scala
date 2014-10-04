@@ -18,7 +18,7 @@ class ElasticSearchNotesDao(client: Client)(implicit context: ExecutionContext) 
 
   def add(newNote: NewNote): Future[UUID] = {
     val note = Note(UUID.randomUUID(), newNote.text)
-    val req = Requests.indexRequest(index).`type`(typ)/*.id(note.id.toString)*/.source(mapper.encode(note))
+    val req = Requests.indexRequest(index).`type`(typ).id(note.id.toString).source(mapper.encode(note))
 
     future[IndexResponse](client.index(req, _)) map { res =>
       if (res.isCreated) note.id
@@ -38,8 +38,8 @@ class ElasticSearchNotesDao(client: Client)(implicit context: ExecutionContext) 
   private def future[A](f: ActionListener[A] => Unit) = {
     val p = Promise[A]()
     f(new ActionListener[A] {
-      def onFailure(e: Throwable): Unit = p.tryFailure(e)
-      def onResponse(response: A): Unit = p.trySuccess(response)
+      def onFailure(e: Throwable) = p.tryFailure(e)
+      def onResponse(response: A) = p.trySuccess(response)
     })
     p.future
   }
