@@ -22,7 +22,7 @@ service_name: "{{ artifact }}"
 script_dir: "{{ base_dir }}/script"
 start_script: "{{ script_dir }}/start"
 conf_dir: "{{ base_dir }}/conf"
-pid_file: "/run/{{ artifact }}.pid"
+pid_file: "/var/run/{{ artifact }}.pid"
 app_config: "{{ conf_dir }}/application.conf"
 log_config: "{{ conf_dir }}/logback.xml"
 
@@ -33,3 +33,6 @@ nginx_www_dir: "{{ nginx_base }}/www"
 nginx_admin_user: admin
 nginx_admin_password: TODO
 nginx_admin_htpasswd_file: "{{ nginx_base }}/pwd"
+
+# elasticsearch
+elasticsearch_cluster_name: memento

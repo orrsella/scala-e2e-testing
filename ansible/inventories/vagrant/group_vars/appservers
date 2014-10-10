@@ -6,4 +6,3 @@ yandex_translate_secure: false
 yandex_translate_api_key: API_KEY
 elasticsearch_host: localhost
 elasticsearch_port: 9300
-elasticsearch_cluster_name: memento_notes

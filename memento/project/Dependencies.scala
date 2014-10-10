@@ -7,7 +7,7 @@ object Dependencies {
   private val mockito       = "org.mockito"             %  "mockito-all"        % "1.9.5"
   private val json4s        = "org.json4s"              %% "json4s-native"      % "3.2.9"
   private val logback       = "ch.qos.logback"          %  "logback-classic"    % "1.1.1"
-  private val elasticsearch = "org.elasticsearch"       %  "elasticsearch"      % "1.3.2"
+  private val elasticsearch = "org.elasticsearch"       %  "elasticsearch"      % "1.3.4"
   private val jodatime      = "joda-time"               %  "joda-time"          % "2.3"
   private val jodaconvert   = "org.joda"                %  "joda-convert"       % "1.6"
   private val config        = "com.typesafe"            %  "config"             % "1.2.0"

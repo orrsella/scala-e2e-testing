@@ -1,0 +1,6 @@
+---
+
+major_version: 1.3
+version: 1.3.4
+user: elasticsearch
+cluster_name: memento

@@ -18,3 +18,9 @@
   sudo: true
   roles:
     - haproxy
+
+- hosts: databases
+  user: deploy
+  sudo: true
+  roles:
+    - elasticsearch

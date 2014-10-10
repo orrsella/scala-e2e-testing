@@ -1,0 +1,17 @@
+---
+
+- name: Add the elasticsearch.org signing apt key
+  apt_key: url=http://packages.elasticsearch.org/GPG-KEY-elasticsearch state=present
+
+- name: Add the elasticsearch.org apt repository
+  apt_repository: repo='deb http://packages.elasticsearch.org/elasticsearch/{{ major_version }}/debian stable main' state=present update_cache=yes
+
+- name: Install elasticsearch
+  apt: name=elasticsearch={{ version }} state=present
+
+- name: Configure elasticsearch
+  template: src=elasticsearch.yml.j2 dest=/etc/elasticsearch/elasticsearch.yml
+  notify: restart elasticsearch
+
+- name: Ensure elasticsearch is running and enabled
+  service: name=elasticsearch state=started enabled=yes
