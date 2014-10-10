@@ -1,8 +1,17 @@
 com.example.memento.finatra.config {
-    port = {{ port }}
-    adminPort = {{ admin_port }}
-    yandexTranslateHost = "{{ yandex_translate_host }}"
-    yandexTranslatePort = {{ yandex_translate_port }}
-    yandexTranslateSecure = {{ yandex_translate_secure | lower }}
-    yandexTranslateApiKey = "{{ yandex_translate_api_key }}"
+  port = {{ port }}
+  adminPort = {{ admin_port }}
+
+  yandexTranslate {
+    host = "{{ yandex_translate_host }}"
+    port = {{ yandex_translate_port }}
+    secure = {{ yandex_translate_secure | lower }}
+    apiKey = "{{ yandex_translate_api_key }}"
+  }
+
+  elasticsearch {
+    host = "{{ elasticsearch_host }}"
+    port = {{ elasticsearch_port }}
+    clusterName = "{{ elasticsearch_cluster_name }}"
+  }
 }

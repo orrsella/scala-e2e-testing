@@ -7,11 +7,13 @@ import java.util.UUID
 import org.elasticsearch.action.ActionListener
 import org.elasticsearch.action.get.GetResponse
 import org.elasticsearch.action.index.IndexResponse
+import org.elasticsearch.client.transport.TransportClient
 import org.elasticsearch.client.{Client, Requests}
+import org.elasticsearch.common.settings.ImmutableSettings
+import org.elasticsearch.common.transport.InetSocketTransportAddress
 import scala.concurrent.{ExecutionContext, Future, Promise}
 
-class ElasticSearchNotesDao(client: Client)(implicit context: ExecutionContext) extends NotesDao {
-
+class ElasticsearchNotesDao(client: Client)(implicit context: ExecutionContext) extends NotesDao {
   private val index = "notes"
   private val typ = "note"
   private val mapper = new Json4sMapper
@@ -42,5 +44,17 @@ class ElasticSearchNotesDao(client: Client)(implicit context: ExecutionContext) 
       def onResponse(response: A) = p.trySuccess(response)
     })
     p.future
+  }
+}
+
+object ElasticsearchNotesDao {
+  def apply(host: String, port: Int, clusterName: String)(implicit context: ExecutionContext): ElasticsearchNotesDao = {
+    val settings = ImmutableSettings.settingsBuilder
+      .put("cluster.name", clusterName)
+      .put("client.transport.sniff", true)
+      .build
+
+    val client = new TransportClient(settings).addTransportAddress(new InetSocketTransportAddress(host, port))
+    new ElasticsearchNotesDao(client)
   }
 }

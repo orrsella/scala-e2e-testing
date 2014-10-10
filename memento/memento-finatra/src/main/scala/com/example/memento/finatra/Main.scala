@@ -1,7 +1,7 @@
 package com.example.memento.finatra
 
 import com.example.memento.core.Logging
-import com.example.memento.core.dal.InMemoryNotesDao
+import com.example.memento.core.dal.ElasticsearchNotesDao
 import com.example.memento.core.http.finagle.FinagleHttpClient
 import com.example.memento.core.translation.yandex.YandexTranslator
 import com.example.memento.finatra.controllers.NotesController
@@ -14,7 +14,7 @@ object Main extends App with Logging {
   System.setProperty("com.twitter.finatra.config.adminPort", ":" + Config.adminPort)
 
   try {
-    val notesDao = new InMemoryNotesDao()
+    val notesDao = ElasticsearchNotesDao(Config.elasticsearchHost, Config.elasticsearchPort, Config.elasticsearchClusterName)
     val client = new FinagleHttpClient(Config.yandexTranslateHost, Config.yandexTranslatePort, Config.yandexTranslateSecure)
     val translator = new YandexTranslator(client, Config.yandexTranslateApiKey)
 

@@ -3,9 +3,9 @@ package com.example.memento.testkit.servers
 import java.nio.file.Files
 import org.apache.commons.io.FileUtils
 import org.elasticsearch.common.settings.ImmutableSettings
-import org.elasticsearch.node.NodeBuilder
+import org.elasticsearch.node.NodeBuilder._
 
-class ElasticSearchServer {
+class ElasticsearchServer {
 
   private val clusterName = "elasticsearch"
   private val dataDir = Files.createTempDirectory("elasticsearch_data_").toFile
@@ -14,7 +14,7 @@ class ElasticSearchServer {
     .put("cluster.name", clusterName)
     .build //.put("http.enabled", "false")
 
-  private lazy val node = new NodeBuilder().local(true).settings(settings).build
+  private lazy val node = nodeBuilder().local(true).settings(settings).build
   def client = node.client
 
   def start(): Unit = {

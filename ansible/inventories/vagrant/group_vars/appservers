@@ -1,6 +1,9 @@
 ---
+memento_finatra_version: 1.0.1-SNAPSHOT
 yandex_translate_host: 10.0.2.2
 yandex_translate_port: 9921
 yandex_translate_secure: false
 yandex_translate_api_key: API_KEY
-memento_finatra_version: 1.0.1-SNAPSHOT
+elasticsearch_host: localhost
+elasticsearch_port: 9300
+elasticsearch_cluster_name: memento_notes

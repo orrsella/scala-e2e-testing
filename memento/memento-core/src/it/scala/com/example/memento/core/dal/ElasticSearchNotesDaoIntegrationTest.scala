@@ -3,17 +3,17 @@ package com.example.memento.core.dal
 import com.example.memento.core.model.Note
 import com.example.memento.testkit.FutureTestingSupport
 import com.example.memento.testkit.matchers.NoteMatchers
-import com.example.memento.testkit.servers.ElasticSearchServer
+import com.example.memento.testkit.servers.ElasticsearchServer
 import java.util.UUID
 import org.specs2.mutable.Specification
 import org.specs2.specification.Scope
 
-class ElasticSearchNotesDaoIntegrationTest extends Specification with FutureTestingSupport with NoteMatchers {
+class ElasticsearchNotesDaoIntegrationTest extends Specification with FutureTestingSupport with NoteMatchers {
 
-  val server = new ElasticSearchServer
+  val server = new ElasticsearchServer
 
   trait Context extends Scope {
-    val dao = new ElasticSearchNotesDao(server.client)
+    val dao = new ElasticsearchNotesDao(server.client)
   }
 
   step {
@@ -21,7 +21,7 @@ class ElasticSearchNotesDaoIntegrationTest extends Specification with FutureTest
     server.createAndWaitForIndex("notes")
   }
 
-  "ElasticSearch notes dao" should {
+  "Elasticsearch notes dao" should {
     "return None for a non-existing note" in new Context {
       val note: Option[Note] = dao.get(UUID.randomUUID)
       note must beNone
