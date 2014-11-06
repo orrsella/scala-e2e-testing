@@ -2,6 +2,7 @@ package com.example.memento.testkit.servers
 
 import java.nio.file.Files
 import org.apache.commons.io.FileUtils
+import org.elasticsearch.client.Client
 import org.elasticsearch.common.settings.ImmutableSettings
 import org.elasticsearch.node.NodeBuilder._
 
@@ -12,10 +13,10 @@ class ElasticsearchServer {
   private val settings = ImmutableSettings.settingsBuilder
     .put("path.data", dataDir.toString)
     .put("cluster.name", clusterName)
-    .build //.put("http.enabled", "false")
+    .build
 
   private lazy val node = nodeBuilder().local(true).settings(settings).build
-  def client = node.client
+  def client: Client = node.client
 
   def start(): Unit = {
     node.start()
@@ -31,7 +32,7 @@ class ElasticsearchServer {
     }
   }
 
-  def createAndWaitForIndex(index: String) = {
+  def createAndWaitForIndex(index: String): Unit = {
     client.admin.indices.prepareCreate(index).execute.actionGet()
     client.admin.cluster.prepareHealth(index).setWaitForActiveShards(1).execute.actionGet()
   }

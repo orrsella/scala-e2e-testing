@@ -17,7 +17,7 @@ object TheBuild extends Build {
   // -------------------------------------------------------------------------------------------------------------------
 
   lazy val testkit: Project = Project("memento-testkit", file("memento-testkit"))
-    .settings(unmanagedSourceDirectories in Compile <++= (unmanagedSourceDirectories in (LocalProject("memento-core"), Compile))) // to avoid cyclic refence
+    .settings(unmanagedSourceDirectories in Compile <++= (unmanagedSourceDirectories in (LocalProject("memento-core"), Compile))) // to avoid cyclic reference
     .configs(Configs.all: _*)
     .settings(Settings.testkit: _*)
 
