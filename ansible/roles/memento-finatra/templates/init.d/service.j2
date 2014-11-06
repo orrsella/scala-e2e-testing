@@ -17,17 +17,9 @@ green='\e[0;32m'
 yellow='\e[0;33m'
 reset='\e[0m'
 
-echoGreen() {
-    echo -e "${green}$1${reset}"
-}
-
-echoRed() {
-    echo -e "${red}$1${reset}"
-}
-
-echoYellow() {
-    echo -e "${yellow}$1${reset}"
-}
+echoGreen() { echo -e "${green}$1${reset}"; }
+echoRed() { echo -e "${red}$1${reset}"; }
+echoYellow() { echo -e "${yellow}$1${reset}"; }
 
 start() {
     PID=`$DAEMON $ARGS > /dev/null 2>&1 & echo $!`
