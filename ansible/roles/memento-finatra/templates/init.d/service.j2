@@ -29,7 +29,7 @@ case "$1" in
 start)
     if [ -f $PID_FILE ]; then
         PID=`cat $PID_FILE`
-        if [ -z "`ps axf | grep ${PID} | grep -v grep`" ]; then
+        if [ -z "`ps axf | grep -w ${PID} | grep -v grep`" ]; then
             start
         else
             echoYellow "Already running [$PID]"
@@ -52,7 +52,7 @@ start)
 status)
     if [ -f $PID_FILE ]; then
         PID=`cat $PID_FILE`
-        if [ -z "`ps axf | grep ${PID} | grep -v grep`" ]; then
+        if [ -z "`ps axf | grep -w ${PID} | grep -v grep`" ]; then
             echoRed "Not running (process dead but pidfile exists)"
             exit 1
         else
@@ -68,7 +68,7 @@ status)
 stop)
     if [ -f $PID_FILE ]; then
         PID=`cat $PID_FILE`
-        if [ -z "`ps axf | grep ${PID} | grep -v grep`" ]; then
+        if [ -z "`ps axf | grep -w ${PID} | grep -v grep`" ]; then
             echoRed "Not running (process dead but pidfile exists)"
             exit 1
         else
